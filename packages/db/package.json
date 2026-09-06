@@ -1,0 +1,34 @@
+{
+  "name": "@appstore/db",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Esquema Prisma, cliente y consultas del modelo de lectura",
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./lectura": "./src/lectura/index.ts"
+  },
+  "scripts": {
+    "generate": "prisma generate",
+    "migrate": "prisma migrate dev",
+    "deploy": "prisma migrate deploy",
+    "studio": "prisma studio",
+    "seed": "tsx prisma/seed.ts",
+    "seed:catalogo": "tsx prisma/seed-catalogo.ts",
+    "sql": "tsx prisma/aplicar-sql.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@prisma/adapter-pg": "^7.10.0",
+    "@prisma/client": "^7.9.1",
+    "pg": "^8.23.0"
+  },
+  "devDependencies": {
+    "@appstore/config": "*",
+    "@types/pg": "^8.23.1",
+    "dotenv": "^17.4.2",
+    "prisma": "^7.9.1"
+  }
+}

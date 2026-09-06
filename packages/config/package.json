@@ -1,0 +1,12 @@
+{
+  "name": "@appstore/config",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Configuracion compartida: tsconfig y eslint para todo el monorepo",
+  "files": [
+    "tsconfig.base.json",
+    "tsconfig.lib.json",
+    "tsconfig.next.json",
+    "eslint.config.mjs"
+  ]
+}

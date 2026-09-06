@@ -1,0 +1,41 @@
+# dependencias
+node_modules/
+.npm/
+
+# builds
+.next/
+out/
+dist/
+build/
+*.tsbuildinfo
+
+# turbo
+.turbo/
+
+# entorno
+.env
+.env.local
+.env*.local
+
+# prisma
+packages/db/src/generated/
+
+# expo (F7)
+.expo/
+apps/mobile/ios/
+apps/mobile/android/
+
+# certificados de desarrollo https
+.certs/
+certs/
+
+# editor / sistema
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+
+# logs
+*.log
+npm-debug.log*

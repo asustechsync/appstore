@@ -1,0 +1,42 @@
+{
+  "name": "appstore",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Ecommerce con presupuesto de 40 ms — web, panel y app movil sobre un nucleo compartido",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "turbo run dev",
+    "dev:web": "turbo run dev --filter=@appstore/web",
+    "dev:admin": "turbo run dev --filter=@appstore/admin",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "check": "npm run lint && npm run typecheck && npm run test",
+    "db:generate": "npm run generate -w @appstore/db",
+    "db:migrate": "npm run migrate -w @appstore/db",
+    "db:sql": "npm run sql -w @appstore/db",
+    "db:studio": "npm run studio -w @appstore/db",
+    "db:seed": "npm run seed -w @appstore/db",
+    "db:seed:catalogo": "npm run seed:catalogo -w @appstore/db",
+    "ui:tokens": "npm run tokens -w @appstore/ui"
+  },
+  "//": "La cadena de herramientas se declara SOLO aqui. Una version de TypeScript, ESLint y tsx para todo el monorepo: evita conflictos de peer-deps y que dos paquetes compilen con reglas distintas.",
+  "devDependencies": {
+    "@types/node": "^24.13.3",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.7",
+    "eslint": "^9",
+    "eslint-config-next": "^16.3.4",
+    "tsx": "^4.23.13",
+    "turbo": "^2.5.5",
+    "typescript": "^6.0.3"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "packageManager": "npm@12.0.2"
+}

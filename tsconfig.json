@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "./packages/config/tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "paths": {
+      "@appstore/core": ["./packages/core/src/index.ts"],
+      "@appstore/core/*": ["./packages/core/src/*"],
+      "@appstore/db": ["./packages/db/src/index.ts"],
+      "@appstore/db/*": ["./packages/db/src/*"],
+      "@appstore/api": ["./packages/api/src/index.ts"],
+      "@appstore/api/*": ["./packages/api/src/*"],
+      "@appstore/ui": ["./packages/ui/src/index.ts"],
+      "@appstore/ui/*": ["./packages/ui/src/*"],
+      "@appstore/tipos": ["./packages/tipos/src/index.ts"],
+      "@appstore/tipos/*": ["./packages/tipos/src/*"]
+    }
+  },
+  "include": ["packages/*/src/**/*.ts", "apps/*/src/**/*.ts", "apps/*/src/**/*.tsx"],
+  "exclude": ["node_modules", "**/dist", "**/.next", "**/.turbo"]
+}

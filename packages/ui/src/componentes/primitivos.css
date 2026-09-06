@@ -1,0 +1,453 @@
+/* Estilos de los primitivos. Todo sale de las variables de theme.css:
+   este archivo no contiene un solo color ni medida literal. */
+
+/* ── Boton ───────────────────────────────────────────────────────────── */
+.ui-boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--espacio-2);
+  border: 1px solid transparent;
+  border-radius: var(--radio-md);
+  font-family: var(--tipo-familia-base);
+  font-weight: var(--tipo-peso-fuerte);
+  line-height: var(--tipo-altura-apretada);
+  cursor: pointer;
+  transition: background-color var(--transicion-rapida), border-color var(--transicion-rapida);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.ui-boton:disabled { opacity: 0.5; cursor: not-allowed; }
+.ui-boton:focus-visible { outline: 2px solid var(--color-marca-500); outline-offset: 2px; }
+
+/* tamanos */
+.ui-boton--sm { padding: var(--espacio-2) var(--espacio-3); font-size: var(--tipo-tamano-sm); }
+.ui-boton--md { padding: var(--espacio-3) var(--espacio-5); font-size: var(--tipo-tamano-base); }
+.ui-boton--lg { padding: var(--espacio-4) var(--espacio-6); font-size: var(--tipo-tamano-lg); }
+
+/* variantes */
+.ui-boton--solido { background: var(--color-marca-500); color: var(--color-neutro-0); }
+.ui-boton--solido:hover:not(:disabled) { background: var(--color-marca-600); }
+
+.ui-boton--contorno {
+  background: transparent;
+  color: var(--color-texto);
+  border-color: var(--color-borde-fuerte);
+}
+.ui-boton--contorno:hover:not(:disabled) { background: var(--color-fondo-sutil); }
+
+.ui-boton--fantasma { background: transparent; color: var(--color-texto-suave); }
+.ui-boton--fantasma:hover:not(:disabled) { background: var(--color-fondo-sutil); color: var(--color-texto); }
+
+.ui-boton--peligro { background: var(--color-error); color: var(--color-neutro-0); }
+
+/* Sobre fondo oscuro: claro con texto oscuro. */
+.ui-boton--inverso { background: var(--color-neutro-0); color: var(--color-neutro-900); }
+.ui-boton--inverso:hover:not(:disabled) { background: var(--color-neutro-200); }
+
+.ui-boton--ancho { width: 100%; }
+
+/* ── Campo ───────────────────────────────────────────────────────────── */
+.ui-campo { display: flex; flex-direction: column; gap: var(--espacio-1); }
+.ui-campo__etiqueta {
+  font-family: var(--tipo-familia-base);
+  font-size: var(--tipo-tamano-sm);
+  font-weight: var(--tipo-peso-medio);
+  color: var(--color-texto-suave);
+}
+.ui-campo__control {
+  width: 100%;
+  padding: var(--espacio-3) var(--espacio-4);
+  font-family: var(--tipo-familia-base);
+  font-size: var(--tipo-tamano-base);
+  color: var(--color-texto);
+  background: var(--color-superficie);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-md);
+  transition: border-color var(--transicion-rapida);
+}
+.ui-campo__control::placeholder { color: var(--color-texto-tenue); }
+.ui-campo__control:focus {
+  outline: none;
+  border-color: var(--color-marca-500);
+  box-shadow: 0 0 0 3px var(--color-marca-100);
+}
+.ui-campo--error .ui-campo__control { border-color: var(--color-error); }
+.ui-campo__ayuda { font-size: var(--tipo-tamano-xs); color: var(--color-texto-tenue); }
+.ui-campo__error { font-size: var(--tipo-tamano-xs); color: var(--color-error); }
+
+/* ── Tarjeta ─────────────────────────────────────────────────────────── */
+.ui-tarjeta {
+  background: var(--color-superficie);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-lg);
+  overflow: hidden;
+}
+.ui-tarjeta--plana { border: 0; background: transparent; }
+.ui-tarjeta--elevada { border: 0; box-shadow: var(--sombra-md); }
+.ui-tarjeta--interactiva { transition: box-shadow var(--transicion-normal); }
+.ui-tarjeta--interactiva:hover { box-shadow: var(--sombra-lg); }
+.ui-tarjeta__cuerpo { padding: var(--espacio-4); }
+
+/* ── Precio ──────────────────────────────────────────────────────────── */
+.ui-precio { display: inline-flex; align-items: baseline; gap: var(--espacio-2); }
+.ui-precio__actual {
+  font-family: var(--tipo-familia-base);
+  font-weight: var(--tipo-peso-fuerte);
+  color: var(--color-precio);
+  font-variant-numeric: tabular-nums;
+}
+/* En oferta el precio se mantiene en el color normal (minimalista): la
+   diferencia la marca el precio tachado y la insignia de descuento. */
+.ui-precio__antes {
+  font-size: var(--tipo-tamano-sm);
+  color: var(--color-texto-tenue);
+  text-decoration: line-through;
+  font-variant-numeric: tabular-nums;
+}
+.ui-precio--sm .ui-precio__actual { font-size: var(--tipo-tamano-base); }
+.ui-precio--md .ui-precio__actual { font-size: var(--tipo-tamano-xl); }
+.ui-precio--lg .ui-precio__actual { font-size: var(--tipo-tamano-3xl); }
+
+/* Sobre fondo oscuro. */
+.ui-precio--inverso .ui-precio__actual { color: var(--color-neutro-0); }
+.ui-precio--inverso.ui-precio--oferta .ui-precio__actual { color: var(--color-neutro-0); }
+.ui-precio--inverso .ui-precio__antes { color: var(--color-neutro-400); }
+
+/* ── Insignia ────────────────────────────────────────────────────────── */
+.ui-insignia {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--espacio-1) var(--espacio-2);
+  border-radius: var(--radio-sm);
+  font-family: var(--tipo-familia-base);
+  font-size: var(--tipo-tamano-xs);
+  font-weight: var(--tipo-peso-fuerte);
+  line-height: var(--tipo-altura-apretada);
+}
+/* Estilo "pastel": fondo tenue del propio color + texto saturado. Es el
+   look de los indicadores del tablero de referencia (+7 %, -19 %). */
+.ui-insignia--neutro { background: var(--color-neutro-100); color: var(--color-neutro-600); }
+.ui-insignia--marca  { background: var(--color-marca-50);   color: var(--color-marca-700); }
+.ui-insignia--oferta { background: color-mix(in srgb, var(--color-oferta) 14%, transparent); color: var(--color-oferta); }
+.ui-insignia--exito  { background: color-mix(in srgb, var(--color-exito) 14%, transparent);  color: var(--color-exito); }
+.ui-insignia--alerta { background: color-mix(in srgb, var(--color-alerta) 16%, transparent); color: var(--color-alerta); }
+.ui-insignia--error  { background: color-mix(in srgb, var(--color-error) 14%, transparent);  color: var(--color-error); }
+
+/* ── Boton iconico ───────────────────────────────────────────────────── */
+/* Boton cuadrado solo-icono: tema, hamburguesa, cerrar. */
+.ui-boton-icono {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  inline-size: var(--espacio-10);
+  block-size: var(--espacio-10);
+  padding: 0;
+  border: 0;
+  border-radius: var(--radio-md);
+  background: transparent;
+  color: var(--color-texto-suave);
+  cursor: pointer;
+  transition: background-color var(--transicion-rapida), color var(--transicion-rapida);
+}
+.ui-boton-icono:hover { background: var(--color-fondo-sutil); color: var(--color-texto); }
+.ui-boton-icono:focus-visible { outline: 2px solid var(--color-marca-500); outline-offset: 2px; }
+.ui-boton-icono__glifo { display: inline-flex; inline-size: 18px; block-size: 18px; }
+
+/* ── Cabecera ────────────────────────────────────────────────────────── */
+.ui-cabecera {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: var(--z-cabecera);
+  background: var(--color-fondo);
+  border-block-end: 1px solid var(--color-borde);
+}
+.ui-cabecera__contenido {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-3);
+  min-block-size: var(--espacio-16);
+}
+.ui-cabecera__marca {
+  font-family: var(--tipo-familia-display);
+  font-weight: var(--tipo-peso-negrita);
+  font-size: var(--tipo-tamano-lg);
+  color: var(--color-texto);
+  letter-spacing: -0.01em;
+}
+.ui-cabecera__nav { display: none; gap: var(--espacio-1); }
+.ui-cabecera__enlace {
+  padding: var(--espacio-2) var(--espacio-3);
+  border-radius: var(--radio-sm);
+  font-size: var(--tipo-tamano-sm);
+  font-weight: var(--tipo-peso-medio);
+  color: var(--color-texto-suave);
+  transition: background-color var(--transicion-rapida), color var(--transicion-rapida);
+}
+.ui-cabecera__enlace:hover { background: var(--color-fondo-sutil); color: var(--color-texto); }
+.ui-cabecera__acciones {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-1);
+  margin-inline-start: auto;
+}
+
+/* ── Menu movil (cajon) ──────────────────────────────────────────────── */
+.ui-menu-movil { position: fixed; inset: 0; z-index: var(--z-modal); }
+.ui-menu-movil__fondo {
+  position: absolute;
+  inset: 0;
+  background: color-mix(in srgb, var(--color-neutro-900) 60%, transparent);
+  backdrop-filter: blur(2px);
+  animation: ui-aparece var(--transicion-rapida) ease-out;
+}
+.ui-menu-movil__panel {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-5);
+  inline-size: min(20rem, 82vw);
+  padding: var(--espacio-4);
+  background: var(--color-fondo);
+  border-inline-end: 1px solid var(--color-borde);
+  animation: ui-entra-izquierda var(--transicion-normal) cubic-bezier(0.4, 0, 0.2, 1);
+}
+.ui-menu-movil__barra {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.ui-menu-movil__nav { display: flex; flex-direction: column; gap: var(--espacio-1); }
+.ui-menu-movil__enlace {
+  padding: var(--espacio-3);
+  border-radius: var(--radio-md);
+  font-size: var(--tipo-tamano-base);
+  font-weight: var(--tipo-peso-medio);
+  color: var(--color-texto);
+  transition: background-color var(--transicion-rapida);
+}
+.ui-menu-movil__enlace:hover { background: var(--color-fondo-sutil); }
+
+@keyframes ui-aparece { from { opacity: 0; } to { opacity: 1; } }
+@keyframes ui-entra-izquierda {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+
+/* Quiebre `md` (= --quiebre-md, 768px): aparece la nav, se va la hamburguesa. */
+@media (min-width: 48rem) {
+  .ui-cabecera__nav { display: flex; }
+  .ui-menu-movil__disparador { display: none; }
+}
+
+/* ── Layout ──────────────────────────────────────────────────────────── */
+.ui-pila { display: flex; flex-direction: column; }
+.ui-fila { display: flex; flex-direction: row; align-items: center; }
+.ui-contenedor {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: var(--espacio-4);
+  max-width: var(--contenedor-ancho);
+}
+.ui-contenedor--lg { max-width: var(--contenedor-lg); }
+.ui-contenedor--md { max-width: var(--contenedor-md); }
+
+.ui-seccion { padding-block: var(--espacio-10); }
+
+/* ── Rejilla de productos ────────────────────────────────────────────── */
+.ui-rejilla-productos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 10rem), 1fr));
+  gap: var(--espacio-3);
+}
+
+/* Desde el quiebre XL (1280 px) el catalogo aprovecha el ancho completo. */
+@media (min-width: 80rem) {
+  .ui-rejilla-productos { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+}
+
+/* ── Carrusel de productos ───────────────────────────────────────────── */
+/* Fila que se recorre en horizontal. `--visibles` = cuantas tarjetas caben
+   a la vez; sube por quiebres (FIRST MOBILE). El .5 deja asomar la
+   siguiente para que se note que hay mas. */
+.ui-carrusel-productos {
+  --visibles: 1.5;
+  position: relative;
+}
+@media (min-width: 40rem) { .ui-carrusel-productos { --visibles: 2.5; } }
+@media (min-width: 52rem) { .ui-carrusel-productos { --visibles: 3.5; } }
+@media (min-width: 64rem) { .ui-carrusel-productos { --visibles: 4.5; } }
+@media (min-width: 80rem) { .ui-carrusel-productos { --visibles: 6; } }
+
+.ui-carrusel-productos__pista {
+  display: flex;
+  gap: var(--espacio-4);
+  overflow-x: auto;
+  overflow-y: hidden;
+  /* `proximity` (no `mandatory`): ayuda a alinear sin secuestrar el scroll. */
+  scroll-snap-type: x proximity;
+  /* deja respirar el foco y la sombra de la primera/ultima tarjeta */
+  padding-block: var(--espacio-1);
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.ui-carrusel-productos__pista::-webkit-scrollbar { display: none; }
+.ui-carrusel-productos__pista > * {
+  flex: 0 0 calc((100% - (var(--visibles) - 1) * var(--espacio-4)) / var(--visibles));
+  scroll-snap-align: start;
+}
+
+.ui-carrusel-productos__flecha {
+  position: absolute;
+  inset-block-start: calc(50% - var(--espacio-1));
+  transform: translateY(-50%);
+  z-index: 1;
+  display: none;
+  place-items: center;
+  inline-size: var(--espacio-10);
+  block-size: var(--espacio-10);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-completo);
+  background: var(--color-superficie);
+  color: var(--color-texto);
+  box-shadow: var(--sombra-md);
+  cursor: pointer;
+  transition: opacity var(--transicion-rapida), background-color var(--transicion-rapida);
+}
+.ui-carrusel-productos__flecha:hover { background: var(--color-fondo-sutil); }
+.ui-carrusel-productos__flecha:focus-visible { outline: 2px solid var(--color-marca-500); outline-offset: 2px; }
+.ui-carrusel-productos__flecha:disabled { opacity: 0; visibility: hidden; pointer-events: none; }
+.ui-carrusel-productos__flecha--prev { inset-inline-start: 0; }
+.ui-carrusel-productos__flecha--next { inset-inline-end: 0; }
+
+/* Con puntero (escritorio) aparecen las flechas; en tactil se arrastra. */
+@media (min-width: 48rem) {
+  .ui-carrusel-productos__flecha { display: grid; }
+}
+
+/* ── Tarjeta de producto ─────────────────────────────────────────────── */
+.ui-tarjeta-producto { display: block; color: inherit; }
+.ui-tarjeta-producto .ui-tarjeta {
+  display: flex;
+  flex-direction: column;
+  border-color: var(--color-borde-fuerte);
+  box-shadow: var(--sombra-sm);
+}
+
+/* Zona superior: imagen protagonista, como en una ficha de coleccion. */
+.ui-tarjeta-producto__figura {
+  position: relative;
+  aspect-ratio: 5 / 4;
+  background: var(--color-superficie);
+}
+.ui-tarjeta-producto__enlace-imagen {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--color-fondo-sutil);
+}
+.ui-tarjeta-producto__enlace-imagen img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+.ui-tarjeta-producto__sin-imagen { width: 100%; height: 100%; background: var(--color-neutro-100); }
+
+.ui-tarjeta-producto__insignia { position: absolute; inset-block-start: var(--espacio-3); inset-inline-start: var(--espacio-3); }
+.ui-tarjeta-producto__agotado  { position: absolute; inset-block-start: var(--espacio-3); inset-inline-end: var(--espacio-3); }
+/* La insignia va sobre una foto: necesita contraste propio, no el tono pastel. */
+.ui-tarjeta-producto__insignia .ui-insignia,
+.ui-tarjeta-producto__agotado .ui-insignia {
+  background: var(--color-neutro-0);
+  box-shadow: var(--sombra-sm);
+}
+.ui-tarjeta-producto__insignia .ui-insignia--oferta { color: var(--color-oferta); }
+.ui-tarjeta-producto__agotado .ui-insignia--neutro { color: var(--color-neutro-700); }
+.ui-tarjeta-producto--agotado .ui-tarjeta-producto__figura img { opacity: 0.45; }
+
+/* Informacion corta y escaneable: marca, producto y precio. */
+.ui-tarjeta-producto__panel {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--espacio-1);
+  padding: var(--espacio-1) var(--espacio-3);
+  background: var(--color-superficie);
+  color: var(--color-texto);
+  flex: 1;
+}
+.ui-tarjeta-producto__categoria {
+  font-size: var(--tipo-tamano-xs);
+  font-weight: var(--tipo-peso-medio);
+  color: var(--color-texto-suave);
+  line-height: var(--tipo-altura-normal);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+}
+.ui-tarjeta-producto__nombre {
+  font-size: var(--tipo-tamano-sm);
+  font-weight: var(--tipo-peso-fuerte);
+  color: var(--color-texto);
+  line-height: var(--tipo-altura-normal);
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ui-tarjeta-producto__datos {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  width: 100%;
+  margin-block-start: var(--espacio-1);
+}
+.ui-tarjeta-producto__dato {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-1);
+  min-width: 0;
+}
+.ui-tarjeta-producto__dato + .ui-tarjeta-producto__dato {
+  padding-inline-start: var(--espacio-2);
+  border-inline-start: 1px solid var(--color-borde);
+}
+.ui-tarjeta-producto__etiqueta-dato {
+  font-size: var(--tipo-tamano-xs);
+  color: var(--color-texto-tenue);
+  line-height: var(--tipo-altura-apretada);
+}
+.ui-tarjeta-producto__datos .ui-precio { min-width: 0; }
+.ui-tarjeta-producto__datos .ui-precio__actual { font-size: var(--tipo-tamano-sm); }
+.ui-tarjeta-producto__estado {
+  font-size: var(--tipo-tamano-sm);
+  font-weight: var(--tipo-peso-fuerte);
+  color: var(--color-texto-suave);
+  line-height: var(--tipo-altura-apretada);
+}
+.ui-tarjeta-producto__favorito {
+  position: absolute;
+  inset-block-start: var(--espacio-2);
+  inset-inline-end: var(--espacio-2);
+  display: grid;
+  place-items: center;
+  inline-size: var(--espacio-8);
+  block-size: var(--espacio-8);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-completo);
+  background: var(--color-superficie);
+  color: var(--color-texto-suave);
+  cursor: pointer;
+  transition: color var(--transicion-rapida), background-color var(--transicion-rapida);
+}
+.ui-tarjeta-producto__favorito:hover { color: var(--color-favorito); background: var(--color-fondo); }
+.ui-tarjeta-producto__favorito[aria-pressed="true"] { background: var(--color-favorito); }
