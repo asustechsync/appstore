@@ -1,13 +1,13 @@
 import type { Metadata, Viewport } from "next";
-import { Poppins } from "next/font/google";
+import { Urbanist } from "next/font/google";
 
 import "./globals.css";
 
-const poppins = Poppins({
+const urbanist = Urbanist({
   subsets: ["latin"],
   display: "swap",
-  variable: "--fuente-poppins",
-  weight: ["400", "500", "600", "700"],
+  variable: "--fuente-urbanist",
+  weight: ["300", "400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -27,7 +27,7 @@ export const viewport: Viewport = {
 export default function LayoutRaiz({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es-PE">
-      <body className={poppins.variable}>{children}</body>
+      <body className={urbanist.variable}>{children}</body>
     </html>
   );
 }

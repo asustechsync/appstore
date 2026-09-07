@@ -1,16 +1,16 @@
 import type { Metadata, Viewport } from "next";
-import { Poppins } from "next/font/google";
+import { Urbanist } from "next/font/google";
 
 import { GUION_TEMA } from "@appstore/ui";
-import { tokens } from "@appstore/ui/tokens";
+import { tokens, tokensOscuro } from "@appstore/ui/tokens";
 
 import "./globals.css";
 
-const poppins = Poppins({
+const urbanist = Urbanist({
   subsets: ["latin"],
   display: "swap",
-  variable: "--fuente-poppins",
-  weight: ["400", "500", "600", "700"],
+  variable: "--fuente-urbanist",
+  weight: ["300", "400", "500", "600", "700"],
 });
 
 /**
@@ -42,7 +42,7 @@ export const viewport: Viewport = {
   initialScale: 1,
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: tokens.color.fondo },
-    { media: "(prefers-color-scheme: dark)", color: "#0B0B0C" },
+    { media: "(prefers-color-scheme: dark)", color: tokensOscuro.color.fondo },
   ],
 };
 
@@ -56,7 +56,7 @@ export default function LayoutRaiz({ children }: { children: React.ReactNode }) 
         {/* Anti-parpadeo: corre sincrono en <head>, antes del primer pintado. */}
         <script dangerouslySetInnerHTML={{ __html: GUION_TEMA }} />
       </head>
-      <body className={poppins.variable}>{children}</body>
+      <body className={urbanist.variable}>{children}</body>
     </html>
   );
 }

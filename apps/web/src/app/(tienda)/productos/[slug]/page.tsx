@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { productoPorSlug, slugsDeProductos } from "@/lib/consultas";
+import { Contenedor, FichaProducto, Seccion, type EspecificacionFicha, type OpcionCompra } from "@appstore/ui";
+
+import { productoPorSlug, slugsDeProductos, type VistaCatalogo } from "@/lib/consultas";
 
 /**
  * ═══════════════════════════════════════════════════════════════════════════
@@ -16,8 +18,12 @@ import { productoPorSlug, slugsDeProductos } from "@/lib/consultas";
  *    4. La pagina no lee cookies ni headers, asi que entra entera en el
  *       shell estatico y la sirve el CDN.
  *
- *  Lo unico dinamico (stock al segundo, boton de carrito) va en componentes
- *  cliente dentro de <PanelCompra />, que se hidratan aparte sin bloquear.
+ *  Lo unico dinamico (seleccion de talla, cantidad, boton de carrito) vive en
+ *  las islas cliente `GaleriaProducto` y `PanelCompra`, dentro de la ficha;
+ *  se hidratan aparte sin bloquear.
+ *
+ *  La pagina no define estilos: solo mapea los datos ya resueltos de
+ *  `catalogo_lectura` a los primitivos de `@appstore/ui`.
  * ═══════════════════════════════════════════════════════════════════════════
  */
 
@@ -45,19 +51,73 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
+/** Slug de categoria -> texto legible para las migas ("kids" -> "Kids"). */
+function titular(slug: string): string {
+  return slug.charAt(0).toUpperCase() + slug.slice(1);
+}
+
+/** Tallas con su stock sumado, en el orden en que aparecen las variantes. */
+function opcionesDeCompra(producto: VistaCatalogo): OpcionCompra[] {
+  const porTalla = new Map<string, number>();
+  for (const variante of producto.variantes) {
+    porTalla.set(variante.talla, (porTalla.get(variante.talla) ?? 0) + variante.stock);
+  }
+  return [...porTalla].map(([valor, stock]) => ({ valor, stock }));
+}
+
+function especificaciones(producto: VistaCatalogo): EspecificacionFicha[] {
+  const colores = [...new Set(producto.variantes.map((v) => v.color).filter(Boolean))];
+  const tallas = [...new Set(producto.variantes.map((v) => v.talla))];
+
+  return [
+    producto.marcaNombre ? { termino: "Marca", detalle: producto.marcaNombre } : null,
+    colores.length > 0 ? { termino: "Color", detalle: colores.join(", ") } : null,
+    tallas.length > 0 ? { termino: "Tallas", detalle: tallas.join(" · ") } : null,
+  ].filter((e): e is EspecificacionFicha => e !== null);
+}
+
 export default async function PaginaProducto({ params }: Props) {
   const { slug } = await params;
   const producto = await productoPorSlug(slug);
 
   if (!producto) notFound();
 
-  return (
-    <main>
-      <h1>{producto.nombre}</h1>
+  const imagenes = producto.imagenes.length > 0
+    ? producto.imagenes
+    : [producto.imagenUrl].filter((url): url is string => Boolean(url));
 
-      {/* F1: <GaleriaProducto />, <PanelCompra />, <DetallesProducto />
-          Todo lo que necesitan (variantes, opciones, imagenes) ya viene
-          pre-armado en `producto`: cero consultas adicionales. */}
-    </main>
+  const migas = [
+    { etiqueta: "Inicio", href: "/" },
+    { etiqueta: titular(producto.categoriaSlug), href: `/categorias/${producto.categoriaSlug}` },
+    { etiqueta: producto.nombre },
+  ];
+
+  return (
+    <Seccion>
+      <Contenedor ancho="lg">
+        <FichaProducto
+          nombre={producto.nombre}
+          marca={producto.marcaNombre}
+          marcaHref={producto.marcaSlug ? `/marcas/${producto.marcaSlug}` : null}
+          sku={producto.sku}
+          migas={migas}
+          imagenes={imagenes}
+          precio={producto.precioDesde}
+          precioLista={producto.precioLista}
+          enOferta={producto.enOferta}
+          descuentoPct={producto.descuentoPct}
+          etiqueta={producto.etiqueta}
+          disponible={producto.disponible}
+          stockTotal={producto.stockTotal}
+          calificacion={producto.calificacion}
+          totalResenas={producto.totalResenas}
+          descripcion={producto.descripcion}
+          descripcionCorta={producto.descripcionCorta}
+          opciones={opcionesDeCompra(producto)}
+          nombreOpcion={producto.opciones[0]?.nombre ?? "Talla"}
+          especificaciones={especificaciones(producto)}
+        />
+      </Contenedor>
+    </Seccion>
   );
 }

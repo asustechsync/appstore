@@ -12,6 +12,8 @@ interface Props {
   searchParams: Promise<{ q?: string }>;
 }
 
+// La consulta llega desde la URL; esta ruta se resuelve por solicitud.
+export const instant = false;
 export const metadata = { title: "Buscar" };
 
 export default async function PaginaBuscar({ searchParams }: Props) {

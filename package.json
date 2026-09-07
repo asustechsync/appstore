@@ -11,6 +11,7 @@
     "dev": "turbo run dev",
     "dev:web": "turbo run dev --filter=@appstore/web",
     "dev:admin": "turbo run dev --filter=@appstore/admin",
+    "prod:web": "npm run start -w @appstore/web",
     "build": "turbo run build",
     "lint": "turbo run lint",
     "typecheck": "turbo run typecheck",
@@ -38,5 +39,11 @@
   "engines": {
     "node": ">=22"
   },
-  "packageManager": "npm@12.0.2"
+  "packageManager": "npm@12.0.2",
+  "allowScripts": {
+    "@prisma/engines@7.10.0": true,
+    "prisma@7.10.0": true,
+    "esbuild@0.28.2": true,
+    "unrs-resolver@1.12.2": true
+  }
 }

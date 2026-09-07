@@ -1065,7 +1065,11 @@ model CatalogoLectura {
 
   slug   String @unique
   nombre String
+  sku    String? // codigo base del producto, para mostrarlo en la ficha
   descripcionCorta String? @map("descripcion_corta")
+  // Descripcion larga: la ficha la necesita y no debe pagar un join para
+  // leerla. Se rellena junto al resto de la fila al refrescar el catalogo.
+  descripcion String @default("")
 
   categoriaId   String  @map("categoria_id")
   categoriaSlug String  @map("categoria_slug")

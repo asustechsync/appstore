@@ -14,6 +14,9 @@ interface Props {
   searchParams: Promise<{ pagina?: string }>;
 }
 
+// La pagina del listado llega desde la URL; esta ruta se resuelve por solicitud.
+export const instant = false;
+
 export default async function PaginaCategoria({ params, searchParams }: Props) {
   const { slug } = await params;
   const { pagina } = await searchParams;

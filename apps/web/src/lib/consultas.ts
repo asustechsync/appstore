@@ -16,27 +16,56 @@ import { db, type CatalogoLectura } from "@appstore/db";
 import { etiquetas } from "./cache";
 
 /**
+ * Una variante ya resuelta dentro de `catalogo_lectura.variantes`. Es lo que la
+ * ficha necesita para pintar el selector de talla y el stock: cero consultas
+ * extra. La arma el refresco del catalogo (hoy, el seed).
+ */
+export interface VarianteCatalogo {
+  id: string;
+  sku: string;
+  talla: string;
+  color: string;
+  precio: number;
+  stock: number;
+}
+
+/** Una opcion configurable (Talla, Color...) dentro de `catalogo_lectura.opciones`. */
+export interface OpcionCatalogo {
+  clave: string;
+  nombre: string;
+  valores: Array<{ valor: string; colorHex?: string | null }>;
+}
+
+/**
  * `catalogo_lectura` guarda los precios como `Decimal`. El objeto Decimal de
  * Prisma no cruza la frontera de `use cache` (ni la de servidor -> cliente):
  * hay que devolver numeros planos. Se convierte aqui, una sola vez.
+ *
+ * Los campos JSON (`variantes`, `opciones`) llegan como `JsonValue`; se tipan
+ * aqui mismo para que la ficha los consuma sin castear.
  */
 export type VistaCatalogo = Omit<
   CatalogoLectura,
-  "precioDesde" | "precioHasta" | "precioLista" | "calificacion"
+  "precioDesde" | "precioHasta" | "precioLista" | "calificacion" | "variantes" | "opciones"
 > & {
   precioDesde: number;
   precioHasta: number;
   precioLista: number;
   calificacion: number | null;
+  variantes: VarianteCatalogo[];
+  opciones: OpcionCatalogo[];
 };
 
 function aVistaCatalogo(fila: CatalogoLectura): VistaCatalogo {
+  const { variantes, opciones, ...resto } = fila;
   return {
-    ...fila,
+    ...resto,
     precioDesde: Number(fila.precioDesde),
     precioHasta: Number(fila.precioHasta),
     precioLista: Number(fila.precioLista),
     calificacion: fila.calificacion === null ? null : Number(fila.calificacion),
+    variantes: Array.isArray(variantes) ? (variantes as unknown as VarianteCatalogo[]) : [],
+    opciones: Array.isArray(opciones) ? (opciones as unknown as OpcionCatalogo[]) : [],
   };
 }
 

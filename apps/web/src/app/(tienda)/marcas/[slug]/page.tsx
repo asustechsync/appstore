@@ -4,6 +4,9 @@ interface Props {
   params: Promise<{ slug: string }>;
 }
 
+// El slug llega desde la URL; esta ruta se resuelve por solicitud.
+export const instant = false;
+
 export default async function PaginaMarca({ params }: Props) {
   const { slug } = await params;
 

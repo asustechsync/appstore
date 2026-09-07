@@ -19,8 +19,8 @@ html {
 
 body {
   margin: 0;
-  --tipo-familia-base: var(--fuente-poppins), "Poppins", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --tipo-familia-display: var(--fuente-poppins), "Poppins", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --tipo-familia-base: var(--fuente-urbanist), "Urbanist", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --tipo-familia-display: var(--fuente-urbanist), "Urbanist", system-ui, -apple-system, "Segoe UI", sans-serif;
   background: var(--color-fondo);
   color: var(--color-texto);
   font-family: var(--tipo-familia-base);

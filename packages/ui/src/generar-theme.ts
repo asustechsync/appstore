@@ -82,14 +82,6 @@ ${varsOscuras}
 :root[data-tema="oscuro"] {
 ${varsOscuras}
 }
-
-/* Tailwind v4 lee los tokens desde aqui: no hay archivo de config aparte. */
-@theme inline {
-${claros
-  .filter(([n]) => n.startsWith("color-"))
-  .map(([n]) => `  --${n}: var(--${n});`)
-  .join("\n")}
-}
 `;
 
   await writeFile(join(AQUI, "theme.css"), css, "utf8");

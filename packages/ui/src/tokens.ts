@@ -25,59 +25,60 @@ export const tokens = {
   // ── Color ────────────────────────────────────────────────────────────────
   // Escalas de 50 a 900. 500 es el tono base de cada familia.
   color: {
-    // Acento sobrio azul grisaceo, inspirado en formularios y paneles claros.
-    // Se usa con moderacion: botones primarios, foco y estados de marca.
+    // Primario monocromatico heredado de webstore. Se usa con moderacion:
+    // botones primarios, foco y estados de marca.
     marca: {
-      50: "#EEF3F7",
-      100: "#DCE6ED",
-      200: "#C1D1DC",
-      300: "#9EB4C4",
-      400: "#7894A8",
-      500: "#5B7890", // base
-      600: "#4C687E",
-      700: "#3F586B",
-      800: "#344957",
-      900: "#293A46",
+      50: "#F6F6F7",
+      100: "#EEEEEF",
+      200: "#D8D8DA",
+      300: "#AAAAB0",
+      400: "#6B6B70",
+      500: "#171717", // base de webstore
+      600: "#141414",
+      700: "#101010",
+      800: "#0C0C0C",
+      900: "#080808",
     },
     // Gris neutro (sin tinte azul). Es el 90 % de la interfaz.
     neutro: {
       0: "#FFFFFF",
-      50: "#FAFAFA",
-      100: "#F4F4F5",
-      200: "#E9E9EC",
-      300: "#D8D8DC",
+      50: "#F6F6F7",
+      100: "#F2F2F2",
+      200: "#E3E3E6",
+      300: "#D4D4D8",
       400: "#A1A1AA",
-      500: "#71717A",
+      500: "#6B6B70",
       600: "#52525B",
       700: "#3F3F46",
-      800: "#27272A",
-      900: "#171719",
+      800: "#1C1C1F",
+      900: "#171717",
     },
 
     // Semanticos: estado, no marca. Nunca se usan como color decorativo.
-    exito: "#1F9D57",
-    alerta: "#C07A12",
-    error: "#DA5157",
+    exito: "#17803D",
+    alerta: "#B54708",
+    error: "#D92D20",
     info: "#2F7DB8",
 
     // De negocio: el precio y la oferta tienen color propio porque su
     // significado no cambia aunque cambie la marca.
-    precio: "#344D62",
-    oferta: "#DA5157",
-    agotado: "#A1A1AA",
+    precio: "#67757C",
+    accion: "#586F80",
+    oferta: "#D92D20",
+    agotado: "#B92A1F",
     favorito: "#EF7A1E", // acento calido del boton de favoritos (corazon)
 
     // Roles de superficie. Son los que usan los componentes, no los de arriba.
-    // El fondo claro se separa levemente de las superficies: asi tarjetas,
-    // campos y paneles blancos conservan su contorno sin sombras pesadas.
-    fondo: "#F7F8FA",
-    fondoSutil: "#F1F4F6",
+    // Webstore usa pagina y superficies blancas; la separacion la aportan el
+    // fondo sutil, los bordes y las sombras de los primitivos.
+    fondo: "#E9E8ED",
+    fondoSutil: "#F6F6F7",
     superficie: "#FFFFFF",
-    borde: "#DCE2E8",
-    bordeFuerte: "#CBD4DC",
-    texto: "#425A70",
-    textoSuave: "#637B8F",
-    textoTenue: "#91A1AE",
+    borde: "#E3E3E6",
+    bordeFuerte: "#D4D4D8",
+    texto: "#67757C",
+    textoSuave: "#6B6B70",
+    textoTenue: "#6B6B70",
     textoInverso: "#FFFFFF",
   },
 
@@ -113,8 +114,8 @@ export const tokens = {
   // ── Tipografia ───────────────────────────────────────────────────────────
   tipo: {
     familia: {
-      base: "'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif",
-      display: "'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif",
+      base: "'Urbanist', system-ui, -apple-system, 'Segoe UI', sans-serif",
+      display: "'Urbanist', system-ui, -apple-system, 'Segoe UI', sans-serif",
       mono: "'IBM Plex Mono', ui-monospace, Consolas, monospace",
     },
     tamano: {
@@ -123,12 +124,14 @@ export const tokens = {
       base: 16,
       lg: 18,
       xl: 20,
+      icono: 22,
       "2xl": 24,
       "3xl": 30,
       "4xl": 38,
       "5xl": 48,
     },
     peso: {
+      ligero: 300,
       normal: 400,
       medio: 500,
       fuerte: 600,
@@ -187,23 +190,36 @@ export const tokens = {
 } as const;
 
 // ═══════════════════════════════════════════════════════════════════════════
-//  Tema oscuro — SOLO redefine roles de superficie.
-//  Las escalas de color no se tocan: se reasignan los roles.
+//  Tema oscuro — redefine los roles semanticos y la escala de marca.
+//  Webstore invierte el primario: casi negro en claro, casi blanco en oscuro.
 // ═══════════════════════════════════════════════════════════════════════════
 
 export const tokensOscuro = {
   color: {
-    fondo: "#0B0B0C",
-    fondoSutil: "#141416",
-    superficie: "#19191C",
-    borde: "#2A2A2E",
-    bordeFuerte: "#3A3A40",
-    texto: "#F4F4F5",
+    marca: {
+      50: "#1C1C1F",
+      100: "#242428",
+      200: "#303035",
+      300: "#52525B",
+      400: "#A1A1AA",
+      500: "#F2F2F2",
+      600: "#DEDEDE",
+      700: "#F7F7F7",
+      800: "#FAFAFA",
+      900: "#FFFFFF",
+    },
+    fondo: "#121212",
+    fondoSutil: "#1C1C1F",
+    superficie: "#1E1E22",
+    borde: "#303035",
+    bordeFuerte: "#414148",
+    texto: "#F2F2F2",
     textoSuave: "#A1A1AA",
-    textoTenue: "#6B6B74",
-    textoInverso: "#18181B",
+    textoTenue: "#73737D",
+    textoInverso: "#171717",
 
-    precio: "#F4F4F5",
+    precio: "#F2F2F2",
+    accion: "#8BAEC2",
     oferta: "#F07C81",
     agotado: "#6B6B74",
     favorito: "#F79544",

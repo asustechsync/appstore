@@ -15,6 +15,9 @@
  *   /cuenta/seguridad       contrasena y sesiones
  */
 
+// La ruta opcional captura segmentos variables para el router cliente.
+export const instant = false;
+
 export default function PaginaCuenta() {
   // F2: <AplicacionCuenta /> — componente cliente con el router interno
   //     y TanStack Query prefetcheando las secciones vecinas.
