@@ -41,6 +41,7 @@ export const t = {
   colorBorde: "#E3E3E6",
   colorBordeFuerte: "#D4D4D8",
   colorTexto: "#67757C",
+  colorTextoProducto: "#505050",
   colorTextoSuave: "#6B6B70",
   colorTextoTenue: "#6B6B70",
   colorTextoInverso: "#FFFFFF",

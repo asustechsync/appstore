@@ -79,6 +79,7 @@ export const tokens = {
     borde: "#E3E3E6",
     bordeFuerte: "#D4D4D8",
     texto: "#67757C",
+    textoProducto: "#505050",
     textoSuave: "#6B6B70",
     textoTenue: "#6B6B70",
     textoInverso: "#FFFFFF",

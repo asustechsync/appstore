@@ -32,6 +32,7 @@ interface ProductoSemilla {
   descripcionCorta: string;
   precio: number;
   precioOferta?: number;
+  etiqueta?: "Nuevo";
   color: string;
   tallas: readonly string[];
   stockPorTalla: number;
@@ -158,6 +159,7 @@ const PRODUCTOS: ProductoSemilla[] = [
     descripcionCorta: "Polera + pantalon, french terry",
     precio: 79.9,
     precioOferta: 59.9,
+    etiqueta: "Nuevo",
     color: "Azul marino",
     tallas: TALLAS_KIDS,
     stockPorTalla: 14,
@@ -313,6 +315,7 @@ async function sembrarProducto(
       precioLista: p.precio,
       enOferta: precio.enOferta,
       descuentoPct: precio.descuentoPct,
+      etiqueta: p.etiqueta ?? null,
       imagenUrl: "/images/BXBL.webp",
       imagenes: [],
       stockTotal,
@@ -350,6 +353,7 @@ async function sembrarProducto(
       precioLista: p.precio,
       enOferta: precio.enOferta,
       descuentoPct: precio.descuentoPct,
+      etiqueta: p.etiqueta ?? null,
       imagenUrl: "/images/BXBL.webp",
       imagenes: [],
       stockTotal,

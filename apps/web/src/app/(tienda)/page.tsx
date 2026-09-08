@@ -64,6 +64,7 @@ export default async function Portada() {
                   precioLista={p.precioLista}
                   enOferta={p.enOferta}
                   descuentoPct={p.descuentoPct}
+                  etiqueta={p.etiqueta === "Nuevo" ? "nuevo" : undefined}
                   disponible={p.disponible}
                   calificacion={p.calificacion}
                   totalResenas={p.totalResenas}

@@ -99,10 +99,10 @@ export function TarjetaProducto({
           )}
 
           <div className="ui-tarjeta-producto__etiquetas">
+            {etiqueta === "nuevo" ? <Insignia tono="marca">NUEVO</Insignia> : null}
             {hayOferta && descuentoPct ? (
-              <Insignia tono="oferta">-{descuentoPct}%</Insignia>
+              <Insignia tono="oferta">OFERTA</Insignia>
             ) : null}
-            {etiqueta === "nuevo" ? <Insignia tono="marca">Nuevo</Insignia> : null}
             {!disponible ? <Insignia tono="neutro">Agotado</Insignia> : null}
           </div>
         </div>

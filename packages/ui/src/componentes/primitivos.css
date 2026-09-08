@@ -382,12 +382,14 @@
   outline-offset: 2px;
 }
 
-/* Formato compacto: reduce altura vacia y conserva la presencia visual de la
-   foto mediante un encuadre ligeramente ampliado. */
+/* Formato compacto: acerca la informacion de la tarjeta a la foto sin
+   recortar el producto. */
 .ui-tarjeta-producto__figura {
   position: relative;
-  aspect-ratio: 6 / 5;
+  aspect-ratio: 4 / 3;
   padding: var(--espacio-2);
+  /* Reserva una franja para las etiquetas, incluso con el leve zoom de la foto. */
+  padding-block-start: var(--espacio-8);
   overflow: hidden;
   background: var(--color-fondo-sutil);
 }
@@ -395,10 +397,10 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
-  transform: scale(1.15);
+  transform: scale(1.35);
   transition: transform var(--transicion-normal);
 }
-.ui-tarjeta-producto:hover .ui-tarjeta-producto__figura img { transform: scale(1.15); }
+.ui-tarjeta-producto:hover .ui-tarjeta-producto__figura img { transform: scale(1.35); }
 .ui-tarjeta-producto__sin-imagen {
   display: grid;
   place-items: center;
@@ -410,14 +412,14 @@
 }
 .ui-tarjeta-producto--agotado .ui-tarjeta-producto__figura img { opacity: 0.45; }
 
-/* Etiquetas apiladas sobre la imagen, arriba a la izquierda. */
+/* Etiquetas en linea sobre la imagen, arriba a la izquierda. */
 .ui-tarjeta-producto__etiquetas {
   position: absolute;
   inset-block-start: var(--espacio-2);
   inset-inline-start: var(--espacio-2);
   z-index: 2;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: flex-start;
   flex-wrap: wrap;
   gap: var(--espacio-1);
@@ -427,12 +429,19 @@
   background: var(--color-neutro-0);
   box-shadow: var(--sombra-sm);
   border-radius: var(--radio-lg);
+  padding: calc(var(--espacio-1) * 0.5) var(--espacio-1);
+  font-size: calc(var(--tipo-tamano-xs) - 1px);
 }
 .ui-tarjeta-producto__etiquetas .ui-insignia--oferta {
   border-radius: var(--radio-sm);
   background: color-mix(in srgb, var(--color-oferta) 14%, var(--color-neutro-0));
   color: var(--color-oferta);
   font-family: var(--tipo-familia-numeros);
+}
+.ui-tarjeta-producto__etiquetas .ui-insignia--marca {
+  border-radius: var(--radio-sm);
+  background: color-mix(in srgb, var(--color-info) 14%, var(--color-neutro-0));
+  color: var(--color-info);
 }
 .ui-tarjeta-producto__etiquetas .ui-insignia--neutro { color: var(--color-neutro-700); }
 
@@ -480,7 +489,7 @@
 .ui-tarjeta-producto__marca {
   margin: 0;
   color: var(--color-texto-tenue);
-  font-size: var(--tipo-tamano-xs);
+  font-size: calc(var(--tipo-tamano-xs) - 1px);
   font-weight: var(--tipo-peso-medio);
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -493,8 +502,8 @@
   display: block;
   overflow: hidden;
   margin: 0;
-  color: var(--color-texto);
-  font-size: var(--tipo-tamano-base);
+  color: var(--color-texto-producto);
+  font-size: var(--tipo-tamano-sm);
   font-weight: var(--tipo-peso-fuerte);
   line-height: var(--tipo-altura-apretada);
   text-overflow: ellipsis;
@@ -502,6 +511,10 @@
 }
 .ui-tarjeta-producto__tendencia {
   margin-block-start: 0;
+}
+.ui-tarjeta-producto__tendencia .ui-insignia {
+  padding: calc(var(--espacio-1) * 0.5) var(--espacio-1);
+  font-size: calc(var(--tipo-tamano-xs) - 1px);
 }
 .ui-tarjeta-producto__sku {
   margin: 0;
@@ -573,7 +586,8 @@
   align-items: center;
 }
 .ui-tarjeta-producto .ui-precio--md .ui-precio__actual {
-  font-size: var(--tipo-tamano-lg);
+  font-size: var(--tipo-tamano-base);
+  color: var(--color-texto-producto);
 }
 .ui-tarjeta-producto__carrito {
   position: relative;
