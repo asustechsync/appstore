@@ -4,6 +4,8 @@ import { Tarjeta } from "./Tarjeta";
 
 import "./primitivos.css";
 
+const CALIFICACION_FICTICIA = "4.5";
+
 export interface PropsTarjetaProducto {
   /** Nombre del producto. */
   nombre: string;
@@ -23,8 +25,16 @@ export interface PropsTarjetaProducto {
   marca?: string | null;
   /** Segunda linea bajo el nombre (categoria, SKU, variante...). */
   categoria?: string | null;
+  /** Codigo base del producto visible en el catalogo. */
+  sku?: string | null;
   /** Distintivo opcional sobre la imagen, por ejemplo en "Nuevos ingresos". */
   etiqueta?: "nuevo";
+  /** Calificacion media de 0 a 5. Si falta, no se pinta la fila de estrellas. */
+  calificacion?: number | null;
+  /** Numero de resenas que respaldan la calificacion. */
+  totalResenas?: number | null;
+  /** Unidades disponibles. Se muestra bajo el precio como "En stock N productos". */
+  stock?: number | null;
   /** Adelanta la carga de la imagen en las tarjetas visibles al abrir la pagina. */
   prioridad?: boolean;
   /**
@@ -38,8 +48,7 @@ export interface PropsTarjetaProducto {
  * Tarjeta del catalogo. Compone `Tarjeta`, `Precio` e `Insignia`; no define
  * ningun color ni medida propia.
  *
- * Toda la tarjeta enlaza a la ficha mediante un enlace que la cubre; el corazon
- * de favoritos queda por encima y es visual (se conecta en F2). La ficha
+ * Toda la tarjeta enlaza a la ficha mediante un enlace que la cubre. La ficha
  * concentra la eleccion de variante y la compra, para que el catalogo muestre
  * mas productos sin perder claridad.
  */
@@ -54,7 +63,9 @@ export function TarjetaProducto({
   descuentoPct,
   disponible = true,
   marca,
+  sku,
   etiqueta,
+  stock,
   prioridad = false,
   variante = "tarjeta",
 }: PropsTarjetaProducto) {
@@ -89,50 +100,42 @@ export function TarjetaProducto({
           )}
 
           <div className="ui-tarjeta-producto__etiquetas">
+            {hayOferta && descuentoPct ? (
+              <Insignia tono="oferta">-{descuentoPct}%</Insignia>
+            ) : null}
             {etiqueta === "nuevo" ? <Insignia tono="marca">Nuevo</Insignia> : null}
             {!disponible ? <Insignia tono="neutro">Agotado</Insignia> : null}
           </div>
         </div>
 
         <div className="ui-tarjeta-producto__panel">
-          {marca ? <p className="ui-tarjeta-producto__marca">{marca}</p> : null}
+          <div className="ui-tarjeta-producto__meta">
+            {marca ? <p className="ui-tarjeta-producto__marca">{marca}</p> : null}
+            <div className="ui-tarjeta-producto__calificacion" aria-label="Calificacion 4.5 de 5">
+              <span className="ui-tarjeta-producto__calificacion-icono" aria-hidden="true" />
+              <span className="ui-tarjeta-producto__calificacion-valor">
+                {CALIFICACION_FICTICIA}
+              </span>
+            </div>
+          </div>
           <h3 className="ui-tarjeta-producto__nombre">{nombre}</h3>
+          {sku ? <p className="ui-tarjeta-producto__sku">Cód.: {sku}</p> : null}
+          {disponible && typeof stock === "number" && stock > 0 ? (
+            <p className="ui-tarjeta-producto__stock">
+              Stock: <strong>Disponible</strong>
+            </p>
+          ) : null}
           <div className="ui-tarjeta-producto__precios">
             <div className="ui-tarjeta-producto__precio-info">
               <div className="ui-tarjeta-producto__precio-anterior">
-                <Precio
-                  valor={precio}
-                  antes={hayOferta ? precioLista : null}
-                  tamano="md"
-                  disposicion="resumen"
-                  descuento={
-                    hayOferta && descuentoPct ? (
-                      <Insignia tono="marca">-{descuentoPct}%</Insignia>
-                    ) : null
-                  }
-                />
+                <Precio valor={precio} antes={hayOferta ? precioLista : null} tamano="md" />
               </div>
             </div>
-            <button
-              type="button"
-              className="ui-tarjeta-producto__carrito"
-              aria-label={`Agregar ${nombre} al carrito`}
-            >
-              <span className="ui-tarjeta-producto__carrito-icono" aria-hidden="true" />
-            </button>
           </div>
         </div>
       </Tarjeta>
 
       <a className="ui-tarjeta-producto__enlace-cubre" href={enlace} aria-label={nombre} />
-
-      <button
-        type="button"
-        className="ui-tarjeta-producto__favorito"
-        aria-label={`Anadir ${nombre} a favoritos`}
-      >
-        <span className="ui-tarjeta-producto__favorito-icono" aria-hidden="true" />
-      </button>
     </div>
   );
 }

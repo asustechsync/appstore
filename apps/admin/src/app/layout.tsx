@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Urbanist } from "next/font/google";
+import { Bai_Jamjuree, Urbanist } from "next/font/google";
 
 import "./globals.css";
 
@@ -7,6 +7,13 @@ const urbanist = Urbanist({
   subsets: ["latin"],
   display: "swap",
   variable: "--fuente-urbanist",
+  weight: ["300", "400", "500", "600", "700"],
+});
+
+const baiJamjuree = Bai_Jamjuree({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--fuente-bai-jamjuree",
   weight: ["300", "400", "500", "600", "700"],
 });
 
@@ -27,7 +34,7 @@ export const viewport: Viewport = {
 export default function LayoutRaiz({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es-PE">
-      <body className={urbanist.variable}>{children}</body>
+      <body className={`${baiJamjuree.variable} ${urbanist.variable}`}>{children}</body>
     </html>
   );
 }

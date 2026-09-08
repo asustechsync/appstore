@@ -67,6 +67,7 @@ export const tokens = {
     oferta: "#D92D20",
     agotado: "#B92A1F",
     favorito: "#EF7A1E", // acento calido del boton de favoritos (corazon)
+    calificacion: "#F2A93B", // estrellas de la valoracion
 
     // Roles de superficie. Son los que usan los componentes, no los de arriba.
     // Webstore usa pagina y superficies blancas; la separacion la aportan el
@@ -114,8 +115,9 @@ export const tokens = {
   // ── Tipografia ───────────────────────────────────────────────────────────
   tipo: {
     familia: {
-      base: "'Urbanist', system-ui, -apple-system, 'Segoe UI', sans-serif",
-      display: "'Urbanist', system-ui, -apple-system, 'Segoe UI', sans-serif",
+      base: "'Bai Jamjuree', system-ui, -apple-system, 'Segoe UI', sans-serif",
+      display: "'Bai Jamjuree', system-ui, -apple-system, 'Segoe UI', sans-serif",
+      numeros: "'Urbanist', system-ui, -apple-system, 'Segoe UI', sans-serif",
       mono: "'IBM Plex Mono', ui-monospace, Consolas, monospace",
     },
     tamano: {
@@ -223,6 +225,7 @@ export const tokensOscuro = {
     oferta: "#F07C81",
     agotado: "#6B6B74",
     favorito: "#F79544",
+    calificacion: "#F4BB5C",
 
     exito: "#3ED68C",
     alerta: "#EAB143",

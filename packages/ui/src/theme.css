@@ -32,6 +32,7 @@
   --color-oferta: #D92D20;
   --color-agotado: #B92A1F;
   --color-favorito: #EF7A1E;
+  --color-calificacion: #F2A93B;
   --color-fondo: #E9E8ED;
   --color-fondo-sutil: #F6F6F7;
   --color-superficie: #FFFFFF;
@@ -60,8 +61,9 @@
   --radio-lg: 14px;
   --radio-xl: 20px;
   --radio-completo: 9999px;
-  --tipo-familia-base: 'Urbanist', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --tipo-familia-display: 'Urbanist', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --tipo-familia-base: 'Bai Jamjuree', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --tipo-familia-display: 'Bai Jamjuree', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --tipo-familia-numeros: 'Urbanist', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --tipo-familia-mono: 'IBM Plex Mono', ui-monospace, Consolas, monospace;
   --tipo-tamano-xs: 12px;
   --tipo-tamano-sm: 14px;
@@ -131,6 +133,7 @@
     --color-oferta: #F07C81;
     --color-agotado: #6B6B74;
     --color-favorito: #F79544;
+    --color-calificacion: #F4BB5C;
     --color-exito: #3ED68C;
     --color-alerta: #EAB143;
     --color-error: #F07C81;
@@ -167,6 +170,7 @@
     --color-oferta: #F07C81;
     --color-agotado: #6B6B74;
     --color-favorito: #F79544;
+    --color-calificacion: #F4BB5C;
     --color-exito: #3ED68C;
     --color-alerta: #EAB143;
     --color-error: #F07C81;

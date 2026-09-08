@@ -8,6 +8,11 @@ export interface PropsCarruselProductos {
   children: ReactNode;
   /** Nombre accesible de la region (ej. "Productos destacados"). */
   etiqueta?: string;
+  /**
+   * Cuantos elementos caben por vista. "productos" muestra tarjetas anchas;
+   * "categorias" muestra el doble, que son fichas pequenas.
+   */
+  densidad?: "productos" | "categorias";
 }
 
 /**
@@ -18,7 +23,11 @@ export interface PropsCarruselProductos {
  * FIRST MOBILE: el numero de tarjetas visibles sube por quiebres via la
  * variable `--visibles` en primitivos.css; aqui no hay medidas.
  */
-export function CarruselProductos({ children, etiqueta = "Productos" }: PropsCarruselProductos) {
+export function CarruselProductos({
+  children,
+  etiqueta = "Productos",
+  densidad = "productos",
+}: PropsCarruselProductos) {
   const pistaRef = useRef<HTMLDivElement>(null);
   const [alInicio, setAlInicio] = useState(true);
   const [alFinal, setAlFinal] = useState(true);
@@ -59,7 +68,12 @@ export function CarruselProductos({ children, etiqueta = "Productos" }: PropsCar
   }
 
   return (
-    <div className="ui-carrusel-productos" role="region" aria-roledescription="carrusel" aria-label={etiqueta}>
+    <div
+      className={`ui-carrusel-productos ui-carrusel-productos--${densidad}`}
+      role="region"
+      aria-roledescription="carrusel"
+      aria-label={etiqueta}
+    >
       <div className="ui-carrusel-productos__pista" ref={pistaRef}>
         {children}
       </div>

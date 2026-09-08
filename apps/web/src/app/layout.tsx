@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Urbanist } from "next/font/google";
+import { Bai_Jamjuree, Urbanist } from "next/font/google";
 
 import { GUION_TEMA } from "@appstore/ui";
 import { tokens, tokensOscuro } from "@appstore/ui/tokens";
@@ -10,6 +10,13 @@ const urbanist = Urbanist({
   subsets: ["latin"],
   display: "swap",
   variable: "--fuente-urbanist",
+  weight: ["300", "400", "500", "600", "700"],
+});
+
+const baiJamjuree = Bai_Jamjuree({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--fuente-bai-jamjuree",
   weight: ["300", "400", "500", "600", "700"],
 });
 
@@ -56,7 +63,7 @@ export default function LayoutRaiz({ children }: { children: React.ReactNode }) 
         {/* Anti-parpadeo: corre sincrono en <head>, antes del primer pintado. */}
         <script dangerouslySetInnerHTML={{ __html: GUION_TEMA }} />
       </head>
-      <body className={urbanist.variable}>{children}</body>
+      <body className={`${baiJamjuree.variable} ${urbanist.variable}`}>{children}</body>
     </html>
   );
 }

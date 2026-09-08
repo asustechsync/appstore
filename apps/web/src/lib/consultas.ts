@@ -119,6 +119,23 @@ export async function destacadosPortada(limite = 12): Promise<VistaCatalogo[]> {
   return filas.map(aVistaCatalogo);
 }
 
+/**
+ * Categorias que la portada muestra como accesos directos. Solo las raiz
+ * marcadas como destacadas, en el orden que fija el panel.
+ */
+export async function categoriasDestacadas(limite = 12) {
+  "use cache";
+  cacheLife("max");
+  cacheTag(etiquetas.portada());
+
+  return db.categoria.findMany({
+    where: { destacada: true, activo: true, padreId: null },
+    orderBy: [{ orden: "asc" }, { nombre: "asc" }],
+    take: limite,
+    select: { id: true, nombre: true, slug: true, imagenUrl: true },
+  });
+}
+
 export async function productosEnOferta(limite = 24): Promise<VistaCatalogo[]> {
   "use cache";
   cacheLife("max");
