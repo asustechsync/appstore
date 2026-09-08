@@ -29,7 +29,8 @@
   --color-info: #2F7DB8;
   --color-precio: #67757C;
   --color-accion: #586F80;
-  --color-oferta: #D92D20;
+  --color-comprar: #67757C;
+  --color-oferta: #e63945;
   --color-agotado: #B92A1F;
   --color-favorito: #EF7A1E;
   --color-calificacion: #F2A93B;
@@ -56,10 +57,10 @@
   --espacio-20: 80px;
   --espacio-24: 96px;
   --radio-ninguno: 0px;
-  --radio-sm: 6px;
-  --radio-md: 10px;
-  --radio-lg: 14px;
-  --radio-xl: 20px;
+  --radio-sm: 4px;
+  --radio-md: 8px;
+  --radio-lg: 12px;
+  --radio-xl: 18px;
   --radio-completo: 9999px;
   --tipo-familia-base: 'Bai Jamjuree', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --tipo-familia-display: 'Bai Jamjuree', system-ui, -apple-system, 'Segoe UI', sans-serif;

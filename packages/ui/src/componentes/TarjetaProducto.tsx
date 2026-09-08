@@ -4,8 +4,6 @@ import { Tarjeta } from "./Tarjeta";
 
 import "./primitivos.css";
 
-const CALIFICACION_FICTICIA = "4.5";
-
 export interface PropsTarjetaProducto {
   /** Nombre del producto. */
   nombre: string;
@@ -33,8 +31,10 @@ export interface PropsTarjetaProducto {
   calificacion?: number | null;
   /** Numero de resenas que respaldan la calificacion. */
   totalResenas?: number | null;
-  /** Unidades disponibles. Se muestra bajo el precio como "En stock N productos". */
+  /** Unidades disponibles (se conserva para compatibilidad con los consumidores). */
   stock?: number | null;
+  /** Acción para agregar el producto al carrito desde la card. */
+  onAgregar?: () => void;
   /** Adelanta la carga de la imagen en las tarjetas visibles al abrir la pagina. */
   prioridad?: boolean;
   /**
@@ -63,11 +63,10 @@ export function TarjetaProducto({
   descuentoPct,
   disponible = true,
   marca,
-  sku,
   etiqueta,
-  stock,
   prioridad = false,
   variante = "tarjeta",
+  onAgregar,
 }: PropsTarjetaProducto) {
   const clases = [
     "ui-tarjeta-producto",
@@ -111,26 +110,25 @@ export function TarjetaProducto({
         <div className="ui-tarjeta-producto__panel">
           <div className="ui-tarjeta-producto__meta">
             {marca ? <p className="ui-tarjeta-producto__marca">{marca}</p> : null}
-            <div className="ui-tarjeta-producto__calificacion" aria-label="Calificacion 4.5 de 5">
-              <span className="ui-tarjeta-producto__calificacion-icono" aria-hidden="true" />
-              <span className="ui-tarjeta-producto__calificacion-valor">
-                {CALIFICACION_FICTICIA}
-              </span>
-            </div>
           </div>
           <h3 className="ui-tarjeta-producto__nombre">{nombre}</h3>
-          {sku ? <p className="ui-tarjeta-producto__sku">Cód.: {sku}</p> : null}
-          {disponible && typeof stock === "number" && stock > 0 ? (
-            <p className="ui-tarjeta-producto__stock">
-              Stock: <strong>Disponible</strong>
-            </p>
-          ) : null}
+          <div className="ui-tarjeta-producto__tendencia">
+            <Insignia tono="exito">DISPONIBLE</Insignia>
+          </div>
           <div className="ui-tarjeta-producto__precios">
             <div className="ui-tarjeta-producto__precio-info">
               <div className="ui-tarjeta-producto__precio-anterior">
                 <Precio valor={precio} antes={hayOferta ? precioLista : null} tamano="md" />
               </div>
             </div>
+          </div>
+          <div className="ui-tarjeta-producto__acciones">
+            <button className="ui-tarjeta-producto__comprar" type="button" onClick={onAgregar} disabled={!disponible || !onAgregar}>
+              <span className="ui-tarjeta-producto__comprar-texto">AGREGAR</span>
+            </button>
+            <button className="ui-tarjeta-producto__favorito-accion" type="button" aria-label={`Agregar ${nombre} a favoritos`}>
+              <span className="ui-tarjeta-producto__favorito-icono" aria-hidden="true" />
+            </button>
           </div>
         </div>
       </Tarjeta>

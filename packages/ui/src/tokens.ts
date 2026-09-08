@@ -64,7 +64,8 @@ export const tokens = {
     // significado no cambia aunque cambie la marca.
     precio: "#67757C",
     accion: "#586F80",
-    oferta: "#D92D20",
+    comprar: "#67757C",
+    oferta: "#e63945",
     agotado: "#B92A1F",
     favorito: "#EF7A1E", // acento calido del boton de favoritos (corazon)
     calificacion: "#F2A93B", // estrellas de la valoracion
@@ -105,10 +106,10 @@ export const tokens = {
   // Generoso: la estetica minimalista se apoya en esquinas suaves.
   radio: {
     ninguno: 0,
-    sm: 6,
-    md: 10,
-    lg: 14,
-    xl: 20,
+    sm: 4,
+    md: 8,
+    lg: 12,
+    xl: 18,
     completo: 9999,
   },
 
