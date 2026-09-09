@@ -119,6 +119,20 @@ export async function destacadosPortada(limite = 12): Promise<VistaCatalogo[]> {
   return filas.map(aVistaCatalogo);
 }
 
+/** Totales de la portada para el hero. Se regeneran junto al resto del catálogo. */
+export async function resumenPortada() {
+  "use cache";
+  cacheLife("max");
+  cacheTag(etiquetas.portada());
+
+  const [totalProductos, totalCategorias] = await Promise.all([
+    db.catalogoLectura.count({ where: { activo: true, disponible: true } }),
+    db.categoria.count({ where: { activo: true, padreId: null } }),
+  ]);
+
+  return { totalProductos, totalCategorias };
+}
+
 /**
  * Categorias que la portada muestra como accesos directos. Solo las raiz
  * marcadas como destacadas, en el orden que fija el panel.

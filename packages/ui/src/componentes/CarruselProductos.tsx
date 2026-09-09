@@ -12,7 +12,7 @@ export interface PropsCarruselProductos {
    * Cuantos elementos caben por vista. "productos" muestra tarjetas anchas;
    * "categorias" muestra el doble, que son fichas pequenas.
    */
-  densidad?: "productos" | "categorias";
+  densidad?: "productos" | "productos-con-banner" | "categorias";
 }
 
 /**

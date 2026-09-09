@@ -23,10 +23,16 @@ export default async function LayoutTienda({ children }: { children: React.React
       })),
     { etiqueta: "Ofertas", href: "/ofertas" },
   ];
+  const enlacesUtilidad: EnlaceNav[] = [
+    { etiqueta: "Mi cuenta", href: "/cuenta", icono: "usuario" },
+    { etiqueta: "Mis pedidos", href: "/cuenta/pedidos", icono: "caja" },
+    { etiqueta: "Favoritos", href: "/cuenta/favoritos", icono: "favorito" },
+    { etiqueta: "Carrito", href: "/carrito", icono: "carrito" },
+  ];
 
   return (
     <>
-      <Cabecera marca="Tienda" enlaces={enlaces} />
+      <Cabecera marca="SOCKS" enlaces={enlaces} enlacesUtilidad={enlacesUtilidad} />
       {children}
       {/* F1: <PieDePagina marcas={marcas} /> */}
       <span hidden>{marcas.length}</span>

@@ -15,7 +15,15 @@ export { RejillaProductos } from "./componentes/RejillaProductos";
 export { RejillaBanners } from "./componentes/RejillaBanners";
 export { PanelSeccion, type PropsPanelSeccion } from "./componentes/PanelSeccion";
 export { TarjetaCategoria, type PropsTarjetaCategoria } from "./componentes/TarjetaCategoria";
+export { TarjetaPromo, type PropsTarjetaPromo } from "./componentes/TarjetaPromo";
 export { BannerPromo, type PropsBannerPromo } from "./componentes/BannerPromo";
+export { OfertaFlash, type PropsOfertaFlash } from "./componentes/OfertaFlash";
+export {
+  HeroPortada,
+  type PropsHeroPortada,
+  type PiezaCategoriaHero,
+  type PiezaProductoHero,
+} from "./componentes/HeroPortada";
 export { CarruselProductos, type PropsCarruselProductos } from "./componentes/CarruselProductos";
 export { GaleriaProducto, type PropsGaleriaProducto } from "./componentes/GaleriaProducto";
 export { PanelCompra, type PropsPanelCompra, type OpcionCompra } from "./componentes/PanelCompra";
