@@ -78,8 +78,6 @@ export function HeroPortada({
         </dl>
       </div>
 
-      {oferta ? <OfertaFlash {...oferta} /> : null}
-
       {!oferta ? productos.slice(0, 1).map((producto) => (
         <a key={producto.enlace} className="ui-hero-portada__pieza" href={producto.enlace}>
           <span className="ui-hero-portada__pieza-figura">
@@ -137,6 +135,8 @@ export function HeroPortada({
           </a>
         ))
       )}
+
+      {oferta ? <OfertaFlash {...oferta} /> : null}
     </section>
   );
 }

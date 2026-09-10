@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 
 import "./primitivos.css";
 
-type Tono = "neutro" | "marca" | "oferta" | "exito" | "alerta" | "error";
+type Tono = "neutro" | "marca" | "oferta" | "tendencia" | "exito" | "alerta" | "error";
 
 export interface PropsInsignia {
   tono?: Tono;

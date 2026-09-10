@@ -66,6 +66,7 @@ export const tokens = {
     accion: "#586F80",
     comprar: "#67757C",
     oferta: "#e63945",
+    tendencia: "#8B5CF6",
     agotado: "#B92A1F",
     favorito: "#EF7A1E", // acento calido del boton de favoritos (corazon)
     calificacion: "#F2A93B", // estrellas de la valoracion
@@ -225,6 +226,7 @@ export const tokensOscuro = {
     precio: "#F2F2F2",
     accion: "#8BAEC2",
     oferta: "#F07C81",
+    tendencia: "#A78BFA",
     agotado: "#6B6B74",
     favorito: "#F79544",
     calificacion: "#F4BB5C",

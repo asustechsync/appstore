@@ -1,5 +1,5 @@
 import { CuentaRegresivaOferta } from "./CuentaRegresivaOferta";
-import { Estrellas } from "./Estrellas";
+import { Insignia } from "./Insignia";
 import { Precio } from "./Precio";
 
 import "./primitivos.css";
@@ -23,30 +23,36 @@ export function OfertaFlash({
   imagenUrl,
   precio,
   precioLista,
-  descuentoPct,
   finalizaEn,
   calificacion,
   stock,
 }: PropsOfertaFlash) {
+  const valorCalificacion = calificacion ?? 4.5;
+
   return (
     <a className="ui-oferta-flash" href={enlace}>
       <span className="ui-oferta-flash__figura">
-        <span className="ui-oferta-flash__etiqueta">Oferta</span>
-        <span className="ui-oferta-flash__descuento">-{descuentoPct}%</span>
+        <span className="ui-oferta-flash__etiquetas">
+          <Insignia tono="oferta">OFERTA</Insignia>
+          <Insignia tono="tendencia">TENDENCIA</Insignia>
+        </span>
         {imagenUrl ? (
           <img src={imagenUrl} alt="" width={360} height={280} loading="eager" decoding="async" />
         ) : null}
       </span>
       <span className="ui-oferta-flash__contenido">
-        <span className="ui-oferta-flash__eyebrow">Tiempo limitado</span>
         <span className="ui-oferta-flash__nombre">{nombre}</span>
-        {calificacion !== null && calificacion !== undefined ? <Estrellas valor={calificacion} /> : null}
+        <span className="ui-oferta-flash__calificacion" role="img" aria-label={`Calificacion: ${valorCalificacion} de 5`}>
+          {[1, 2, 3, 4, 5].map((estrella) => (
+            <i key={estrella} className="ui-oferta-flash__calificacion-icono" aria-hidden="true" />
+          ))}
+        </span>
         <span className="ui-oferta-flash__precio">
-          <Precio valor={precio} antes={precioLista} tamano="sm" />
+          <Precio valor={precio} antes={precioLista} tamano="md" />
         </span>
         {stock !== null && stock !== undefined ? (
           <span className="ui-oferta-flash__disponibilidad">
-            Disponible: {stock}
+            DISPONIBLE: {stock}
             <i aria-hidden="true" />
           </span>
         ) : null}

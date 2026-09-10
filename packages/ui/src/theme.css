@@ -31,6 +31,7 @@
   --color-accion: #586F80;
   --color-comprar: #67757C;
   --color-oferta: #e63945;
+  --color-tendencia: #8B5CF6;
   --color-agotado: #B92A1F;
   --color-favorito: #EF7A1E;
   --color-calificacion: #F2A93B;
@@ -133,6 +134,7 @@
     --color-precio: #F2F2F2;
     --color-accion: #8BAEC2;
     --color-oferta: #F07C81;
+    --color-tendencia: #A78BFA;
     --color-agotado: #6B6B74;
     --color-favorito: #F79544;
     --color-calificacion: #F4BB5C;
@@ -170,6 +172,7 @@
     --color-precio: #F2F2F2;
     --color-accion: #8BAEC2;
     --color-oferta: #F07C81;
+    --color-tendencia: #A78BFA;
     --color-agotado: #6B6B74;
     --color-favorito: #F79544;
     --color-calificacion: #F4BB5C;
