@@ -52,12 +52,25 @@ export function Cabecera({
 }: PropsCabecera) {
   return (
     <header className="ui-cabecera">
+      <div className="ui-cabecera__aviso">
+        <div className="ui-contenedor ui-cabecera__aviso-contenido">
+          <span className="ui-cabecera__aviso-envio">
+            <IconoCamion />
+            Envíos a todo el Perú
+          </span>
+          <a className="ui-cabecera__aviso-promocion" href={promocionHref}>
+            <IconoDestello />
+            {mensajePromocion}
+          </a>
+        </div>
+      </div>
       <div className="ui-cabecera__contenido ui-contenedor">
         <div className="ui-cabecera__principal">
           <MenuMovil marca={marca} marcaHref={marcaHref} enlaces={enlaces} />
 
           <a className="ui-cabecera__marca" href={marcaHref}>
-            {marca}
+            <span className="ui-cabecera__marca-sello" aria-hidden="true">S</span>
+            <span>{marca}</span>
           </a>
 
           <form className="ui-cabecera__buscador" action="/buscar" role="search">
@@ -69,11 +82,6 @@ export function Cabecera({
               <span className="ui-cabecera__icono ui-cabecera__icono--buscar" aria-hidden="true" />
             </button>
           </form>
-
-          <a className="ui-cabecera__promocion" href={promocionHref}>
-            <IconoDestello />
-            {mensajePromocion}
-          </a>
 
           <div className="ui-cabecera__acciones">
             {acciones}
@@ -108,6 +116,14 @@ export function Cabecera({
         </div>
       </div>
     </header>
+  );
+}
+
+function IconoCamion() {
+  return (
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M14 17H5V5h9v12Z M14 9h4l3 3v5h-2 M14 17h2 M7 17a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm10 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z" />
+    </svg>
   );
 }
 
