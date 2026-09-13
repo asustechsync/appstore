@@ -25,7 +25,6 @@ export default async function LayoutTienda({ children }: { children: React.React
   ];
   const enlacesUtilidad: EnlaceNav[] = [
     { etiqueta: "Mi cuenta", href: "/cuenta", icono: "usuario" },
-    { etiqueta: "Mis pedidos", href: "/cuenta/pedidos", icono: "caja" },
     { etiqueta: "Favoritos", href: "/cuenta/favoritos", icono: "favorito" },
     { etiqueta: "Carrito", href: "/carrito", icono: "carrito" },
   ];

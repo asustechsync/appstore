@@ -80,3 +80,10 @@ export {
   type TarifaZona,
   type ConsultaEnvio,
 } from "./envios/tarifas";
+
+// ── Ubicacion ─────────────────────────────────────────────────────────────
+export {
+  resolverDistritoPorCoordenadas,
+  type LimiteDistrital,
+  type DistritoResuelto,
+} from "./ubicacion/resolver-distrito";

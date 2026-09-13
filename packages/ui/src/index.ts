@@ -35,3 +35,5 @@ export {
 } from "./componentes/FichaProducto";
 export { Cabecera, type PropsCabecera, type EnlaceNav } from "./componentes/Cabecera";
 export { AlternarTema } from "./componentes/AlternarTema";
+export { UbicacionActual, type PropsUbicacionActual } from "./componentes/UbicacionActual";
+export { Selector, type OpcionSelector, type PropsSelector } from "./componentes/Selector";

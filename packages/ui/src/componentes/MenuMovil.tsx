@@ -13,9 +13,8 @@ interface PropsMenuMovil {
 }
 
 /**
- * Disparador de hamburguesa + cajon lateral. Solo se ve por debajo del quiebre
- * `lg` (el CSS oculta el disparador en escritorio). El cajon monta unicamente
- * cuando esta abierto.
+ * Disparador de categorias + cajon lateral. En movil conserva solo el icono;
+ * en escritorio muestra tambien su etiqueta. El cajon se monta al abrirse.
  */
 export function MenuMovil({ marca, marcaHref, enlaces }: PropsMenuMovil) {
   const [abierto, setAbierto] = useState(false);
@@ -40,14 +39,15 @@ export function MenuMovil({ marca, marcaHref, enlaces }: PropsMenuMovil) {
     <>
       <button
         type="button"
-        className="ui-boton-icono ui-menu-movil__disparador"
-        aria-label="Abrir menu"
+        className="ui-menu-movil__disparador"
+        aria-label="Abrir categorías"
         aria-expanded={abierto}
         onClick={() => setAbierto(true)}
       >
         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
           <path d="M3 6h18M3 12h18M3 18h18" />
         </svg>
+        <span className="ui-menu-movil__disparador-etiqueta">Categorías</span>
       </button>
 
       {abierto ? (

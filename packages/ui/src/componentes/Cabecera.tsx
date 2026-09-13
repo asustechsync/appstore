@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 
 import { AlternarTema } from "./AlternarTema";
-import { MenuMovil } from "./MenuMovil";
+import { UbicacionActual } from "./UbicacionActual";
 
 import "./primitivos.css";
 
@@ -16,7 +16,7 @@ export interface PropsCabecera {
   marca: string;
   /** Destino del logo. Por defecto la portada. */
   marcaHref?: string;
-  /** Enlaces de navegacion principal (departamentos, ofertas...). */
+  /** Enlaces de navegacion principal mostrados en la segunda fila. */
   enlaces: EnlaceNav[];
   /** Acciones extra a la derecha (sesion, carrito). El boton de tema ya va. */
   acciones?: ReactNode;
@@ -36,8 +36,8 @@ export interface PropsCabecera {
  * Cabecera de la tienda — parte del shell estatico (Clase A).
  *
  * Es un componente de servidor: los enlaces se pintan en el HTML. Lo unico
- * interactivo son dos islas cliente que se hidratan aparte: el cajon movil
- * (`MenuMovil`) y el interruptor de tema (`AlternarTema`).
+ * interactivo son islas cliente que se hidratan aparte: la ubicacion y el
+ * interruptor de tema.
  */
 export function Cabecera({
   marca,
@@ -66,10 +66,7 @@ export function Cabecera({
       </div>
       <div className="ui-cabecera__contenido ui-contenedor">
         <div className="ui-cabecera__principal">
-          <MenuMovil marca={marca} marcaHref={marcaHref} enlaces={enlaces} />
-
           <a className="ui-cabecera__marca" href={marcaHref}>
-            <span className="ui-cabecera__marca-sello" aria-hidden="true">S</span>
             <span>{marca}</span>
           </a>
 
@@ -83,6 +80,23 @@ export function Cabecera({
             </button>
           </form>
 
+          <nav className="ui-cabecera__utilidades" aria-label="Acciones de cuenta">
+            {enlacesUtilidad.map((enlace) => (
+              <a
+                key={enlace.href}
+                className="ui-cabecera__utilidad"
+                href={enlace.href}
+                title={enlace.etiqueta}
+                aria-label={enlace.etiqueta}
+              >
+                {enlace.icono ? (
+                  <span className={`ui-cabecera__icono ui-cabecera__icono--${enlace.icono}`} aria-hidden="true" />
+                ) : null}
+                <span className="ui-solo-lectores">{enlace.etiqueta}</span>
+              </a>
+            ))}
+          </nav>
+
           <div className="ui-cabecera__acciones">
             {acciones}
             <AlternarTema />
@@ -90,25 +104,11 @@ export function Cabecera({
         </div>
 
         <div className="ui-cabecera__secundaria">
-          <a className="ui-cabecera__envio" href="/ofertas">
-            <span className="ui-cabecera__icono ui-cabecera__icono--ubicacion" aria-hidden="true" />
-            <span>{mensajeEnvio}</span>
-          </a>
+          <UbicacionActual textoPredeterminado={mensajeEnvio} />
 
           <nav className="ui-cabecera__nav" aria-label="Principal">
             {enlaces.map((enlace) => (
               <a key={enlace.href} className="ui-cabecera__enlace" href={enlace.href}>
-                {enlace.etiqueta}
-              </a>
-            ))}
-          </nav>
-
-          <nav className="ui-cabecera__utilidades" aria-label="Acciones de cuenta">
-            {enlacesUtilidad.map((enlace) => (
-              <a key={enlace.href} className="ui-cabecera__utilidad" href={enlace.href}>
-                {enlace.icono ? (
-                  <span className={`ui-cabecera__icono ui-cabecera__icono--${enlace.icono}`} aria-hidden="true" />
-                ) : null}
                 {enlace.etiqueta}
               </a>
             ))}
