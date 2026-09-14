@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { Contenedor, FichaProducto, Seccion, type EspecificacionFicha, type OpcionCompra } from "@appstore/ui";
+import { Contenedor, FichaProducto, Seccion, type EspecificacionFicha } from "@appstore/ui";
 
+import { CompraProducto } from "@/componentes/carrito/CompraProducto";
 import { productoPorSlug, slugsDeProductos, type VistaCatalogo } from "@/lib/consultas";
 
 /**
@@ -56,14 +57,6 @@ function titular(slug: string): string {
   return slug.charAt(0).toUpperCase() + slug.slice(1);
 }
 
-/** Tallas con su stock sumado, en el orden en que aparecen las variantes. */
-function opcionesDeCompra(producto: VistaCatalogo): OpcionCompra[] {
-  const porTalla = new Map<string, number>();
-  for (const variante of producto.variantes) {
-    porTalla.set(variante.talla, (porTalla.get(variante.talla) ?? 0) + variante.stock);
-  }
-  return [...porTalla].map(([valor, stock]) => ({ valor, stock }));
-}
 
 function especificaciones(producto: VistaCatalogo): EspecificacionFicha[] {
   const colores = [...new Set(producto.variantes.map((v) => v.color).filter(Boolean))];
@@ -113,9 +106,19 @@ export default async function PaginaProducto({ params }: Props) {
           totalResenas={producto.totalResenas}
           descripcion={producto.descripcion}
           descripcionCorta={producto.descripcionCorta}
-          opciones={opcionesDeCompra(producto)}
-          nombreOpcion={producto.opciones[0]?.nombre ?? "Talla"}
           especificaciones={especificaciones(producto)}
+          panelCompra={
+            <CompraProducto
+              productoSlug={producto.slug}
+              nombreProducto={producto.nombre}
+              imagenUrl={producto.imagenUrl}
+              precioOferta={producto.enOferta ? producto.precioDesde : null}
+              variantes={producto.variantes}
+              nombreOpcion={producto.opciones[0]?.nombre ?? "Talla"}
+              disponible={producto.disponible}
+              stockTotal={producto.stockTotal}
+            />
+          }
         />
       </Contenedor>
     </Seccion>

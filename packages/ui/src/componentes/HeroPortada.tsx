@@ -1,7 +1,5 @@
-import { Boton } from "./Boton";
 import { BannerPromo } from "./BannerPromo";
-import { OfertaFlash, type PropsOfertaFlash } from "./OfertaFlash";
-import { Precio } from "./Precio";
+import { SlidePortada, type DiapositivaPortada } from "./SlidePortada";
 
 import "./primitivos.css";
 
@@ -24,10 +22,11 @@ export interface PiezaProductoHero {
 export interface PropsHeroPortada {
   totalProductos: number;
   totalCategorias: number;
+  categorias?: Array<{ nombre: string; enlace: string }>;
+  diapositivas?: DiapositivaPortada[];
   categoria?: PiezaCategoriaHero | null;
   productos?: PiezaProductoHero[];
-  oferta?: PropsOfertaFlash | null;
-  bannerPromocion?: { gancho: string; titulo: string; enlace: string } | null;
+  banners?: Array<{ gancho: string; titulo: string; enlace: string; tono?: "frio" | "calido" }>;
 }
 
 /**
@@ -35,108 +34,36 @@ export interface PropsHeroPortada {
  * marca fijo y completa el costado con una categoría y un producto vigentes.
  */
 export function HeroPortada({
-  totalProductos,
-  totalCategorias,
-  categoria,
-  productos = [],
-  oferta,
-  bannerPromocion,
+  categorias = [],
+  diapositivas = [],
+  banners = [],
 }: PropsHeroPortada) {
   return (
     <section className="ui-hero-portada" aria-labelledby="titulo-hero-portada">
+      {categorias.length > 0 ? (
+        <nav className="ui-hero-portada__categorias" aria-label="Categorías destacadas">
+          {categorias.slice(0, 9).map((item) => (
+            <a key={item.enlace} href={item.enlace}>
+              <span className="ui-hero-portada__categoria-icono ui-hero-portada__categoria-icono--categoria" aria-hidden="true" />
+              {item.nombre}
+            </a>
+          ))}
+          <span className="ui-hero-portada__categoria-separador" aria-hidden="true" />
+          <a className="ui-hero-portada__categoria-especial" href="/buscar?q=combos"><span className="ui-hero-portada__categoria-icono ui-hero-portada__categoria-icono--combos" aria-hidden="true" />COMBOS</a>
+          <a className="ui-hero-portada__categoria-especial" href="/ofertas"><span className="ui-hero-portada__categoria-icono ui-hero-portada__categoria-icono--ofertas" aria-hidden="true" />OFERTAS</a>
+          <a className="ui-hero-portada__categoria-especial" href="/cupones"><span className="ui-hero-portada__categoria-icono ui-hero-portada__categoria-icono--cupones" aria-hidden="true" />CUPONES</a>
+          <a className="ui-hero-portada__categoria-especial" href="/ofertas"><span className="ui-hero-portada__categoria-icono ui-hero-portada__categoria-icono--tendencia" aria-hidden="true" />TENDENCIA</a>
+        </nav>
+      ) : null}
       <div className="ui-hero-portada__principal">
-        <p className="ui-hero-portada__etiqueta">SOCKS · TIENDA ONLINE</p>
-        <h1 id="titulo-hero-portada" className="ui-hero-portada__titulo">
-          Ropa interior y básicos para toda la familia.
-        </h1>
-        <p className="ui-hero-portada__texto">
-          Medias, boxers y prendas esenciales elegidas por talla y color, con stock disponible.
-        </p>
-
-        <div className="ui-hero-portada__acciones">
-          <Boton href="/ofertas">Ver ofertas</Boton>
-          {categoria ? (
-            <Boton href={categoria.enlace} variante="contorno">
-              Explorar categorías
-            </Boton>
-          ) : null}
-        </div>
-
-        <dl className="ui-hero-portada__datos">
-          <div>
-            <dt>Productos</dt>
-            <dd>{totalProductos}</dd>
-          </div>
-          <div>
-            <dt>Categorías</dt>
-            <dd>{totalCategorias}</dd>
-          </div>
-          <div>
-            <dt>Envíos</dt>
-            <dd>Perú</dd>
-          </div>
-        </dl>
+        <SlidePortada diapositivas={diapositivas} />
       </div>
 
-      {!oferta ? productos.slice(0, 1).map((producto) => (
-        <a key={producto.enlace} className="ui-hero-portada__pieza" href={producto.enlace}>
-          <span className="ui-hero-portada__pieza-figura">
-            {producto.imagenUrl ? (
-              <img src={producto.imagenUrl} alt="" width={640} height={360} loading="eager" decoding="async" />
-            ) : (
-              <span className="ui-hero-portada__pieza-inicial" aria-hidden="true">
-                {producto.nombre.charAt(0)}
-              </span>
-            )}
-          </span>
-          <span className="ui-hero-portada__pieza-texto">
-            <span className="ui-hero-portada__pieza-etiqueta">
-              {producto.enOferta && producto.descuentoPct ? `Oferta · -${producto.descuentoPct}%` : "Destacado"}
-            </span>
-            <span className="ui-hero-portada__pieza-titulo">{producto.nombre}</span>
-            <span className="ui-hero-portada__pieza-pie">
-              <Precio valor={producto.precio} antes={producto.enOferta ? producto.precioLista : null} tamano="sm" />
-            </span>
-          </span>
-        </a>
-      )) : null}
-
-      {bannerPromocion ? (
-        <div className="ui-hero-portada__cupones">
-          <BannerPromo
-            gancho={bannerPromocion.gancho}
-            titulo={bannerPromocion.titulo}
-            enlace={bannerPromocion.enlace}
-            textoEnlace="Ver promociones"
-            tono="calido"
-          />
-        </div>
-      ) : (
-        productos.slice(oferta ? 0 : 1, oferta ? 1 : 2).map((producto) => (
-          <a key={producto.enlace} className="ui-hero-portada__pieza" href={producto.enlace}>
-            <span className="ui-hero-portada__pieza-figura">
-              {producto.imagenUrl ? (
-                <img src={producto.imagenUrl} alt="" width={640} height={360} loading="eager" decoding="async" />
-              ) : (
-                <span className="ui-hero-portada__pieza-inicial" aria-hidden="true">
-                  {producto.nombre.charAt(0)}
-                </span>
-              )}
-            </span>
-            <span className="ui-hero-portada__pieza-texto">
-              <span className="ui-hero-portada__pieza-etiqueta">
-                {producto.enOferta && producto.descuentoPct ? `Oferta · -${producto.descuentoPct}%` : "Destacado"}
-              </span>
-              <span className="ui-hero-portada__pieza-titulo">{producto.nombre}</span>
-              <span className="ui-hero-portada__pieza-pie">
-                <Precio valor={producto.precio} antes={producto.enOferta ? producto.precioLista : null} tamano="sm" />
-              </span>
-            </span>
-          </a>
-        ))
-      )}
-
-      {oferta ? <OfertaFlash {...oferta} /> : null}
+      <div className="ui-hero-portada__banners">
+        {banners.slice(0, 2).map((banner) => (
+          <BannerPromo key={banner.titulo} {...banner} textoEnlace="Ver más" />
+        ))}
+      </div>
     </section>
   );
 }

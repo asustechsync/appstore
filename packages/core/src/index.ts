@@ -45,6 +45,16 @@ export {
   type LineaCalculada,
   type CuponAplicable,
 } from "./carrito/calcular";
+export {
+  TOPE_POR_LINEA,
+  topeDeLinea,
+  agregarLinea,
+  fijarCantidad,
+  quitarLinea,
+  quitarAgotadas,
+  contarUnidades,
+  type LineaGuardada,
+} from "./carrito/operaciones";
 
 // ── Pedidos ────────────────────────────────────────────────────────────────
 export {

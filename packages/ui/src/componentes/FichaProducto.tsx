@@ -51,6 +51,12 @@ export interface PropsFichaProducto {
   nombreOpcion?: string;
 
   especificaciones?: EspecificacionFicha[];
+
+  /**
+   * Reemplaza el panel de compra por la isla del consumidor, que si conoce el
+   * carrito. Si falta, se pinta el panel sin conexion.
+   */
+  panelCompra?: ReactNode;
 }
 
 /**
@@ -88,6 +94,7 @@ export function FichaProducto({
   opciones = [],
   nombreOpcion = "Talla",
   especificaciones = [],
+  panelCompra,
 }: PropsFichaProducto) {
   const hayOferta = enOferta && typeof precioLista === "number" && precioLista > precio;
   const parrafos = (descripcion ?? "").split(/\n{2,}/).map((t) => t.trim()).filter(Boolean);
@@ -185,12 +192,14 @@ export function FichaProducto({
 
           {descripcionCorta ? <p className="ui-ficha__resumen">{descripcionCorta}</p> : null}
 
-          <PanelCompra
-            opciones={opciones}
-            nombreOpcion={nombreOpcion}
-            disponible={disponible}
-            stockTotal={stockTotal}
-          />
+          {panelCompra ?? (
+            <PanelCompra
+              opciones={opciones}
+              nombreOpcion={nombreOpcion}
+              disponible={disponible}
+              stockTotal={stockTotal}
+            />
+          )}
 
           <ul className="ui-ficha__entrega">
             <EntregaFila

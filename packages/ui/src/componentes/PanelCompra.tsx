@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 import { Boton } from "./Boton";
+import { SelectorCantidad } from "./SelectorCantidad";
 
 import "./primitivos.css";
 
@@ -24,6 +25,8 @@ export interface PropsPanelCompra {
   stockTotal?: number;
   /** Umbral bajo el cual se avisa "quedan pocas". */
   umbralStockBajo?: number;
+  /** Isla del consumidor: manda la variante elegida al carrito. */
+  onAgregar?: (opcion: string, cantidad: number) => void;
 }
 
 function textoUnidades(n: number): string {
@@ -35,9 +38,8 @@ function textoUnidades(n: number): string {
 /**
  * Bloque interactivo de la ficha: elegir talla, cantidad y agregar al carrito.
  *
- * Isla cliente (lo unico dinamico de una ficha Clase A). El boton de carrito
- * queda listo visualmente; se conecta al carrito (Zustand) en F3, igual que el
- * de la tarjeta del catalogo.
+ * Isla cliente (lo unico dinamico de una ficha Clase A). No conoce el carrito:
+ * avisa por `onAgregar` y quien lo usa decide donde guardar la linea.
  */
 export function PanelCompra({
   opciones,
@@ -45,6 +47,7 @@ export function PanelCompra({
   disponible,
   stockTotal,
   umbralStockBajo = 5,
+  onAgregar,
 }: PropsPanelCompra) {
   const unica = opciones.length === 1 ? opciones[0] : null;
   const [seleccion, setSeleccion] = useState<string | null>(
@@ -66,7 +69,7 @@ export function PanelCompra({
 
   function agregar() {
     if (!elegida || elegida.stock === 0) return;
-    // F3: enviar { ...variante, cantidad } al carrito.
+    onAgregar?.(elegida.valor, cantidadValida);
     setAgregado(true);
   }
 
@@ -100,29 +103,11 @@ export function PanelCompra({
       ) : null}
 
       <div className="ui-panel-compra__fila">
-        <div className="ui-panel-compra__cantidad" role="group" aria-label="Cantidad">
-          <button
-            type="button"
-            className="ui-panel-compra__paso"
-            aria-label="Quitar una unidad"
-            disabled={cantidadValida <= 1}
-            onClick={() => setCantidad((n) => Math.max(1, n - 1))}
-          >
-            −
-          </button>
-          <span className="ui-panel-compra__numero" aria-live="polite">
-            {cantidadValida}
-          </span>
-          <button
-            type="button"
-            className="ui-panel-compra__paso"
-            aria-label="Agregar una unidad"
-            disabled={cantidadValida >= topeCantidad}
-            onClick={() => setCantidad((n) => Math.min(topeCantidad, n + 1))}
-          >
-            +
-          </button>
-        </div>
+        <SelectorCantidad
+          valor={cantidadValida}
+          maximo={topeCantidad}
+          onCambio={(n) => setCantidad(n)}
+        />
 
         <span className="ui-panel-compra__unidades">
           {disponible ? textoUnidades(unidades) : "Sin stock por ahora"}

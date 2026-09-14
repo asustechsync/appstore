@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 
 import { AlternarTema } from "./AlternarTema";
-import { UbicacionActual } from "./UbicacionActual";
+import { Buscador } from "./Buscador";
 
 import "./primitivos.css";
 
@@ -9,6 +9,8 @@ export interface EnlaceNav {
   etiqueta: string;
   href: string;
   icono?: "usuario" | "caja" | "favorito" | "carrito";
+  /** Isla cliente sobre el icono, ej. el contador del carrito. */
+  insignia?: ReactNode;
 }
 
 export interface PropsCabecera {
@@ -22,8 +24,6 @@ export interface PropsCabecera {
   acciones?: ReactNode;
   /** Texto orientativo del buscador del catalogo. */
   textoBuscar?: string;
-  /** Mensaje breve de despacho mostrado junto a la navegación. */
-  mensajeEnvio?: string;
   /** Enlaces secundarios: cuenta, pedidos, favoritos o carrito. */
   enlacesUtilidad?: EnlaceNav[];
   /** Mensaje promocional de la esquina superior derecha. */
@@ -36,8 +36,8 @@ export interface PropsCabecera {
  * Cabecera de la tienda — parte del shell estatico (Clase A).
  *
  * Es un componente de servidor: los enlaces se pintan en el HTML. Lo unico
- * interactivo son islas cliente que se hidratan aparte: la ubicacion y el
- * interruptor de tema.
+ * interactivo es una isla cliente que se hidrata aparte: el interruptor de
+ * tema.
  */
 export function Cabecera({
   marca,
@@ -45,7 +45,6 @@ export function Cabecera({
   enlaces,
   acciones,
   textoBuscar = "Buscar productos, marcas y más",
-  mensajeEnvio = "Ubicación",
   enlacesUtilidad = [],
   mensajePromocion = "Conoce nuestras ofertas de temporada",
   promocionHref = "/ofertas",
@@ -70,15 +69,18 @@ export function Cabecera({
             <span>{marca}</span>
           </a>
 
-          <form className="ui-cabecera__buscador" action="/buscar" role="search">
-            <label className="ui-solo-lectores" htmlFor="busqueda-cabecera">
-              Buscar en el catálogo
-            </label>
-            <input id="busqueda-cabecera" name="q" type="search" placeholder={textoBuscar} />
-            <button type="submit" aria-label="Buscar">
-              <span className="ui-cabecera__icono ui-cabecera__icono--buscar" aria-hidden="true" />
-            </button>
-          </form>
+          <details className="ui-cabecera__categorias">
+            <summary className="ui-cabecera__boton-categorias">Categorías</summary>
+            <nav className="ui-cabecera__menu-categorias" aria-label="Categorías">
+              {enlaces.map((enlace) => (
+                <a key={enlace.href} href={enlace.href}>
+                  {enlace.etiqueta}
+                </a>
+              ))}
+            </nav>
+          </details>
+
+          <Buscador textoBuscar={textoBuscar} />
 
           <nav className="ui-cabecera__utilidades" aria-label="Acciones de cuenta">
             {enlacesUtilidad.map((enlace) => (
@@ -92,6 +94,7 @@ export function Cabecera({
                 {enlace.icono ? (
                   <span className={`ui-cabecera__icono ui-cabecera__icono--${enlace.icono}`} aria-hidden="true" />
                 ) : null}
+                {enlace.insignia}
                 <span className="ui-solo-lectores">{enlace.etiqueta}</span>
               </a>
             ))}
@@ -103,19 +106,21 @@ export function Cabecera({
           </div>
         </div>
 
-        <div className="ui-cabecera__secundaria">
-          <UbicacionActual textoPredeterminado={mensajeEnvio} />
-
-          <nav className="ui-cabecera__nav" aria-label="Principal">
-            {enlaces.map((enlace) => (
-              <a key={enlace.href} className="ui-cabecera__enlace" href={enlace.href}>
-                {enlace.etiqueta}
-              </a>
-            ))}
-          </nav>
-        </div>
       </div>
     </header>
+  );
+}
+
+/**
+ * Contador que se posa sobre el icono del carrito. Lo rellena una isla
+ * cliente del consumidor, que es quien conoce el carrito.
+ */
+export function ContadorCabecera({ valor }: { valor: number }) {
+  if (valor <= 0) return null;
+  return (
+    <span className="ui-cabecera__contador" aria-hidden="true">
+      {valor > 99 ? "99+" : valor}
+    </span>
   );
 }
 

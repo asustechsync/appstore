@@ -24,6 +24,7 @@ export {
   type PiezaCategoriaHero,
   type PiezaProductoHero,
 } from "./componentes/HeroPortada";
+export { SlidePortada, type DiapositivaPortada } from "./componentes/SlidePortada";
 export { CarruselProductos, type PropsCarruselProductos } from "./componentes/CarruselProductos";
 export { GaleriaProducto, type PropsGaleriaProducto } from "./componentes/GaleriaProducto";
 export { PanelCompra, type PropsPanelCompra, type OpcionCompra } from "./componentes/PanelCompra";
@@ -33,7 +34,25 @@ export {
   type MigaFicha,
   type EspecificacionFicha,
 } from "./componentes/FichaProducto";
-export { Cabecera, type PropsCabecera, type EnlaceNav } from "./componentes/Cabecera";
+export { Cabecera, ContadorCabecera, type PropsCabecera, type EnlaceNav } from "./componentes/Cabecera";
+export { Buscador, type PropsBuscador } from "./componentes/Buscador";
+export { CategoriasDestacadas } from "./componentes/CategoriasDestacadas";
+export { ProductosDestacados } from "./componentes/ProductosDestacados";
+export { PromocionesPortada } from "./componentes/PromocionesPortada";
+export { MarcasCarrusel } from "./componentes/MarcasCarrusel";
 export { AlternarTema } from "./componentes/AlternarTema";
 export { UbicacionActual, type PropsUbicacionActual } from "./componentes/UbicacionActual";
 export { Selector, type OpcionSelector, type PropsSelector } from "./componentes/Selector";
+
+// Compra (Clase B): carrito y checkout.
+export { SelectorCantidad, type PropsSelectorCantidad } from "./componentes/SelectorCantidad";
+export { LineaCarrito, type PropsLineaCarrito } from "./componentes/LineaCarrito";
+export {
+  ListaCarrito,
+  BotonVaciar,
+  type PropsListaCarrito,
+  type PropsBotonVaciar,
+} from "./componentes/ListaCarrito";
+export { ResumenCompra, type PropsResumenCompra } from "./componentes/ResumenCompra";
+export { DisposicionCompra, type PropsDisposicionCompra } from "./componentes/DisposicionCompra";
+export { EstadoVacio, type PropsEstadoVacio } from "./componentes/EstadoVacio";
