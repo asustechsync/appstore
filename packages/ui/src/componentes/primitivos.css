@@ -1456,6 +1456,8 @@
   padding-block-start: var(--espacio-1);
 }
 .ui-tarjeta-producto__acciones {
+  position: relative;
+  z-index: 2;
   display: flex;
   gap: var(--espacio-1);
   margin-block-start: 0;

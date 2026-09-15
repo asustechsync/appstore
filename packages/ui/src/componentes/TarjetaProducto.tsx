@@ -1,3 +1,5 @@
+"use client";
+
 import { Insignia } from "./Insignia";
 import { Precio } from "./Precio";
 import { Tarjeta } from "./Tarjeta";

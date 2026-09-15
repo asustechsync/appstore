@@ -21,7 +21,7 @@ export const metadata = { title: "Carrito" };
 export default function PaginaCarrito() {
   return (
     <Seccion>
-      <Contenedor ancho="lg">
+      <Contenedor>
         <CarritoCliente />
       </Contenedor>
     </Seccion>

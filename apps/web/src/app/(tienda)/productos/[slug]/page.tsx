@@ -87,7 +87,7 @@ export default async function PaginaProducto({ params }: Props) {
 
   return (
     <Seccion>
-      <Contenedor ancho="lg">
+      <Contenedor>
         <FichaProducto
           nombre={producto.nombre}
           marca={producto.marcaNombre}

@@ -1,4 +1,5 @@
-import { Contenedor, HeroPortada, MarcasCarrusel, Pila, ProductosDestacados, PromocionesPortada, Seccion } from "@appstore/ui";
+import { Contenedor, HeroPortada, MarcasCarrusel, Pila, PromocionesPortada, Seccion } from "@appstore/ui";
+import { DestacadosCliente } from "@/componentes/carrito/DestacadosCliente";
 import { promocionesPortada } from "@/lib/contenido";
 import { categoriasDestacadas, destacadosPortada, resumenPortada } from "@/lib/consultas";
 
@@ -8,7 +9,7 @@ export default async function Portada() {
   return <Seccion><Contenedor><Pila gap={6}>
     <HeroPortada totalProductos={resumen.totalProductos} totalCategorias={resumen.totalCategorias} categorias={categorias.map((c) => ({ nombre: nombreCategoria(c.slug, c.nombre), enlace: `/categorias/${c.slug}` })).concat({ nombre: "Bebés", enlace: "/buscar?q=bebes" })} diapositivas={diapositivas} banners={promocionesPortada.slice(0, 2)} />
     <MarcasCarrusel />
-    <ProductosDestacados productos={destacados} banner={promocionesPortada[0] ?? null} />
+    <DestacadosCliente productos={destacados} banner={promocionesPortada[0] ?? null} />
     <PromocionesPortada promociones={promocionesPortada} />
   </Pila></Contenedor></Seccion>;
 }
