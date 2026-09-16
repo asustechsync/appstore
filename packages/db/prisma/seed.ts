@@ -98,8 +98,9 @@ const CATEGORIAS: Array<{
 }> = [
   { nombre: "Hombre", slug: "hombre", orden: 1, descripcion: "Ropa y accesorios para hombre" },
   { nombre: "Mujer", slug: "mujer", orden: 2, descripcion: "Ropa y accesorios para mujer" },
-  { nombre: "Teen", slug: "teen", orden: 3, descripcion: "Moda juvenil" },
-  { nombre: "Kids", slug: "kids", orden: 4, descripcion: "Ropa para ninas y ninos" },
+  { nombre: "Juvenil", slug: "juvenil", orden: 3, descripcion: "Moda juvenil" },
+  { nombre: "Niños", slug: "ninos", orden: 4, descripcion: "Ropa para ninas y ninos" },
+  { nombre: "Bebés", slug: "bebes", orden: 5, descripcion: "Ropa y accesorios para bebés" },
 ];
 
 const METODOS_ENVIO = [

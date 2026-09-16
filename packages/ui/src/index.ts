@@ -38,6 +38,11 @@ export { Cabecera, ContadorCabecera, type PropsCabecera, type EnlaceNav } from "
 export { Buscador, type PropsBuscador } from "./componentes/Buscador";
 export { CategoriasDestacadas } from "./componentes/CategoriasDestacadas";
 export { ProductosDestacados } from "./componentes/ProductosDestacados";
+export {
+  SeccionProductos,
+  type ProductoDeSeccion,
+  type PropsSeccionProductos,
+} from "./componentes/SeccionProductos";
 export { PromocionesPortada } from "./componentes/PromocionesPortada";
 export { MarcasCarrusel } from "./componentes/MarcasCarrusel";
 export { AlternarTema } from "./componentes/AlternarTema";

@@ -119,6 +119,38 @@ export async function destacadosPortada(limite = 12): Promise<VistaCatalogo[]> {
   return filas.map(aVistaCatalogo);
 }
 
+/** Productos recientes de la portada, sin salir del modelo de lectura. */
+export async function nuevosPortada(limite = 12): Promise<VistaCatalogo[]> {
+  "use cache";
+  cacheLife("max");
+  cacheTag(etiquetas.portada());
+
+  const filas = await db.catalogoLectura.findMany({
+    where: { disponible: true, activo: true },
+    orderBy: { actualizadoEn: "desc" },
+    take: limite,
+  });
+  return filas.map(aVistaCatalogo);
+}
+
+/**
+ * Selección popular de la portada. Hasta que F4 agregue ventas confirmadas al
+ * modelo de lectura, `destacado` es la curación editorial y reseñas/calificación
+ * ordenan los empates sin consultar tablas transaccionales desde el catálogo.
+ */
+export async function masVendidosPortada(limite = 12): Promise<VistaCatalogo[]> {
+  "use cache";
+  cacheLife("max");
+  cacheTag(etiquetas.portada());
+
+  const filas = await db.catalogoLectura.findMany({
+    where: { destacado: true, disponible: true, activo: true },
+    orderBy: [{ totalResenas: "desc" }, { calificacion: "desc" }, { actualizadoEn: "desc" }],
+    take: limite,
+  });
+  return filas.map(aVistaCatalogo);
+}
+
 /** Totales de la portada para el hero. Se regeneran junto al resto del catálogo. */
 export async function resumenPortada() {
   "use cache";

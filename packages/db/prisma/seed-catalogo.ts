@@ -1,5 +1,5 @@
 /**
- * Catalogo de PRUEBA — 2 productos por departamento (Hombre, Mujer, Teen, Kids).
+ * Catalogo de PRUEBA — 2 productos por departamento (Hombre, Mujer, Juvenil, Niños).
  * Idempotente: se puede correr las veces que haga falta.
  *
  *   npm run db:seed:catalogo
@@ -106,9 +106,9 @@ const PRODUCTOS: ProductoSemilla[] = [
     stockPorTalla: 10,
   },
 
-  // ── Teen ──────────────────────────────────────────────────────────────────
+  // ── Juvenil ───────────────────────────────────────────────────────────────
   {
-    categoriaSlug: "teen",
+    categoriaSlug: "juvenil",
     marcaSlug: "fila",
     nombre: "Hoodie oversize",
     slug: "hoodie-oversize-teen",
@@ -122,7 +122,7 @@ const PRODUCTOS: ProductoSemilla[] = [
     stockPorTalla: 18,
   },
   {
-    categoriaSlug: "teen",
+    categoriaSlug: "juvenil",
     marcaSlug: "boston",
     nombre: "Polera estampada",
     slug: "polera-estampada-teen",
@@ -135,9 +135,9 @@ const PRODUCTOS: ProductoSemilla[] = [
     stockPorTalla: 22,
   },
 
-  // ── Kids ──────────────────────────────────────────────────────────────────
+  // ── Niños ─────────────────────────────────────────────────────────────────
   {
-    categoriaSlug: "kids",
+    categoriaSlug: "ninos",
     marcaSlug: "amanecer",
     nombre: "Polo estampado dinosaurio",
     slug: "polo-dinosaurio-kids",
@@ -150,7 +150,7 @@ const PRODUCTOS: ProductoSemilla[] = [
     stockPorTalla: 25,
   },
   {
-    categoriaSlug: "kids",
+    categoriaSlug: "ninos",
     marcaSlug: "ciervo-dorado",
     nombre: "Conjunto deportivo",
     slug: "conjunto-deportivo-kids",
@@ -382,7 +382,7 @@ async function main(): Promise<void> {
   const almacen = await db.almacen.findUniqueOrThrow({ where: { clave: "PRINCIPAL" } });
 
   const categorias = await db.categoria.findMany({
-    where: { slug: { in: ["hombre", "mujer", "teen", "kids"] } },
+    where: { slug: { in: ["hombre", "mujer", "juvenil", "ninos", "bebes"] } },
     select: { id: true, slug: true },
   });
   const idPorSlug = new Map(categorias.map((c) => [c.slug, c.id]));
@@ -399,7 +399,7 @@ async function main(): Promise<void> {
   );
   const marcaPorSlug = new Map(marcas.map((marca) => [marca.slug, marca]));
 
-  const faltan = ["hombre", "mujer", "teen", "kids"].filter((s) => !idPorSlug.has(s));
+  const faltan = ["hombre", "mujer", "juvenil", "ninos", "bebes"].filter((s) => !idPorSlug.has(s));
   if (faltan.length > 0) {
     throw new Error(`Faltan categorias: ${faltan.join(", ")}. Corre antes: npm run db:seed`);
   }

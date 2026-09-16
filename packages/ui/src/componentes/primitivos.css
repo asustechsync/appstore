@@ -1157,6 +1157,7 @@
 /* El banner ocupa una card adicional sin ocultar los seis productos. */
 @media (min-width: 80rem) {
   .ui-carrusel-productos--productos-con-banner { --visibles: 7; }
+  .ui-carrusel-productos--productos-siete { --visibles: 7; }
 }
 
 .ui-carrusel-productos__pista {
