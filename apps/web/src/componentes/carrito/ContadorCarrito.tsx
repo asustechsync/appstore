@@ -1,6 +1,6 @@
 "use client";
 
-import { ContadorCabecera } from "@appstore/ui";
+import { InsigniaContador } from "@appstore/ui";
 
 import { unidadesDe, useCarrito, useHidratarCarrito } from "@/lib/carrito";
 
@@ -16,5 +16,5 @@ export function ContadorCarrito() {
 
   if (!hidratado) return null;
 
-  return <ContadorCabecera valor={unidades} />;
+  return <InsigniaContador valor={unidades} />;
 }

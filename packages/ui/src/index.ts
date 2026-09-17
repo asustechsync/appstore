@@ -42,7 +42,7 @@ export {
   DisposicionCatalogo,
   type PropsDisposicionCatalogo,
 } from "./componentes/DisposicionCatalogo";
-export { Cabecera, ContadorCabecera, type PropsCabecera, type EnlaceNav } from "./componentes/Cabecera";
+export { Cabecera, InsigniaContador, type PropsCabecera, type EnlaceNav } from "./componentes/Cabecera";
 export { Buscador, type PropsBuscador } from "./componentes/Buscador";
 export { CategoriasDestacadas } from "./componentes/CategoriasDestacadas";
 export { ProductosDestacados } from "./componentes/ProductosDestacados";

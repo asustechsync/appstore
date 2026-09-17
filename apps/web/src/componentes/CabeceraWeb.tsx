@@ -12,7 +12,7 @@ import { navegacion } from "@/lib/consultas";
  * que se hidrata son las islas: el interruptor de tema y el contador del
  * carrito.
  */
-export async function CabeceraTienda() {
+export async function CabeceraWeb() {
   const { categorias } = await navegacion();
 
   const enlaces: EnlaceNav[] = [

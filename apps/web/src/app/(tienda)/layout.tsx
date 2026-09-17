@@ -1,4 +1,4 @@
-import { CabeceraTienda } from "@/componentes/CabeceraTienda";
+import { CabeceraWeb } from "@/componentes/CabeceraWeb";
 import { navegacion } from "@/lib/consultas";
 
 /**
@@ -15,7 +15,7 @@ export default async function LayoutTienda({ children }: { children: React.React
 
   return (
     <>
-      <CabeceraTienda />
+      <CabeceraWeb />
       {children}
       {/* F1: <PieDePagina marcas={marcas} /> */}
       <span hidden>{marcas.length}</span>

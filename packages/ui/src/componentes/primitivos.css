@@ -2545,8 +2545,8 @@
   color: var(--color-texto-tenue);
 }
 
-/* ── Contador del carrito en la cabecera ─────────────────────────────── */
-.ui-cabecera__contador {
+/* ── Insignia numerica sobre un icono (hoy: el carrito) ──────────────── */
+.ui-insignia-contador {
   position: absolute;
   inset-block-start: -0.25rem;
   inset-inline-end: -0.35rem;

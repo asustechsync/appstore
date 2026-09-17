@@ -112,13 +112,14 @@ export function Cabecera({
 }
 
 /**
- * Contador que se posa sobre el icono del carrito. Lo rellena una isla
- * cliente del consumidor, que es quien conoce el carrito.
+ * Insignia numerica que se posa sobre un icono — hoy el del carrito, manana
+ * cualquiera. La rellena una isla cliente del consumidor, que es quien conoce
+ * el dato.
  */
-export function ContadorCabecera({ valor }: { valor: number }) {
+export function InsigniaContador({ valor }: { valor: number }) {
   if (valor <= 0) return null;
   return (
-    <span className="ui-cabecera__contador" aria-hidden="true">
+    <span className="ui-insignia-contador" aria-hidden="true">
       {valor > 99 ? "99+" : valor}
     </span>
   );

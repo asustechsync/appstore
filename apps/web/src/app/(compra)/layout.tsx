@@ -1,4 +1,4 @@
-import { CabeceraTienda } from "@/componentes/CabeceraTienda";
+import { CabeceraWeb } from "@/componentes/CabeceraWeb";
 
 /**
  * Layout de las pantallas de compra — CLASE B (carrito y checkout).
@@ -11,7 +11,7 @@ import { CabeceraTienda } from "@/componentes/CabeceraTienda";
 export default function LayoutCompra({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <CabeceraTienda />
+      <CabeceraWeb />
       {children}
     </>
   );
