@@ -1,0 +1,246 @@
+/* Promociones — tarjeta de categoria, banners y valoracion en tarjeta.
+   Extraido de primitivos.css. Todo sale de las variables de theme.css:
+   este archivo no contiene un solo color ni medida literal. */
+
+/* ── Panel de seccion ────────────────────────────────────────────────── */
+/* Bloque de la portada: superficie con cabecera de titulo. */
+.ui-panel-seccion {
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-md);
+  background: var(--color-superficie);
+  overflow: hidden;
+}
+.ui-panel-seccion__cabecera {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--espacio-3);
+  padding: var(--espacio-4);
+  border-block-end: 1px solid var(--color-borde);
+}
+.ui-panel-seccion__titulo {
+  margin: 0;
+  color: var(--color-texto);
+  font-size: var(--tipo-tamano-lg);
+  font-weight: var(--tipo-peso-fuerte);
+  line-height: var(--tipo-altura-apretada);
+}
+.ui-panel-seccion__accion {
+  font-size: var(--tipo-tamano-sm);
+  color: var(--color-texto-suave);
+}
+.ui-panel-seccion__accion a:hover { color: var(--color-texto); text-decoration: underline; }
+.ui-panel-seccion__cuerpo { padding: var(--espacio-3); }
+@media (min-width: 40rem) {
+  .ui-panel-seccion__cuerpo { padding: var(--espacio-4); }
+}
+
+/* El contenido queda directamente sobre el fondo de pagina: util cuando las
+   tarjetas necesitan leerse como elementos independientes. */
+.ui-panel-seccion--libre {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  overflow: visible;
+}
+.ui-panel-seccion--libre .ui-panel-seccion__cabecera {
+  margin-block-end: var(--espacio-3);
+  padding: var(--espacio-4);
+  border-block-end: 0;
+  border-radius: var(--radio-sm);
+  background: var(--color-superficie);
+}
+.ui-panel-seccion--libre .ui-panel-seccion__cuerpo { padding: 0; }
+
+/* ── Tarjeta de categoria ────────────────────────────────────────────── */
+.ui-tarjeta-categoria {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--espacio-2);
+  padding: var(--espacio-3);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-sm);
+  background: var(--color-superficie);
+  color: var(--color-texto);
+  text-align: center;
+  transition:
+    border-color var(--transicion-rapida),
+    box-shadow var(--transicion-rapida);
+}
+.ui-tarjeta-categoria:hover {
+  border-color: var(--color-borde-fuerte);
+  box-shadow: var(--sombra-md);
+}
+.ui-tarjeta-categoria:focus-visible {
+  outline: 2px solid var(--color-marca-500);
+  outline-offset: 2px;
+}
+/* La imagen tiene tope: aunque la ficha se estire para llenar la fila, el
+   circulo conserva su tamano y la fila mantiene el ritmo. */
+.ui-tarjeta-categoria__figura {
+  display: grid;
+  place-items: center;
+  inline-size: 100%;
+  max-inline-size: 5.5rem;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+}
+.ui-tarjeta-categoria__figura img {
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: contain;
+}
+.ui-tarjeta-categoria__inicial {
+  display: grid;
+  place-items: center;
+  inline-size: 100%;
+  block-size: 100%;
+  border-radius: var(--radio-completo);
+  background: var(--color-fondo-sutil);
+  color: var(--color-texto-tenue);
+  font-size: var(--tipo-tamano-2xl);
+  font-weight: var(--tipo-peso-fuerte);
+}
+.ui-tarjeta-categoria__nombre {
+  font-size: var(--tipo-tamano-sm);
+  font-weight: var(--tipo-peso-medio);
+  color: var(--color-texto-suave);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  inline-size: 100%;
+}
+.ui-tarjeta-categoria:hover .ui-tarjeta-categoria__nombre { color: var(--color-texto); }
+
+/* Densidad del carrusel cuando lleva categorias: fichas mas pequenas. */
+.ui-carrusel-productos--categorias { --visibles: 3; }
+/* Con pocas categorias no hay nada que desplazar: que ocupen la fila entera
+   en vez de dejar un hueco a la derecha. */
+.ui-carrusel-productos--categorias .ui-carrusel-productos__pista > * { flex-grow: 1; }
+@media (min-width: 40rem) { .ui-carrusel-productos--categorias { --visibles: 4; } }
+@media (min-width: 52rem) { .ui-carrusel-productos--categorias { --visibles: 5; } }
+@media (min-width: 64rem) { .ui-carrusel-productos--categorias { --visibles: 6; } }
+@media (min-width: 80rem) { .ui-carrusel-productos--categorias { --visibles: 8; } }
+
+/* ── Estrellas de valoracion ─────────────────────────────────────────── */
+.ui-estrellas {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--espacio-1);
+}
+.ui-estrellas__marco { position: relative; display: inline-block; line-height: 0; }
+.ui-estrellas__capa { display: inline-flex; gap: 1px; }
+.ui-estrellas__capa svg {
+  inline-size: var(--medida-estrella, 13px);
+  block-size: var(--medida-estrella, 13px);
+}
+.ui-estrellas__capa--vacia { color: var(--color-neutro-300); }
+.ui-estrellas__capa--llena {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  inline-size: var(--relleno, 0%);
+  overflow: hidden;
+  color: var(--color-calificacion);
+}
+.ui-estrellas--md { --medida-estrella: 16px; }
+.ui-estrellas__total {
+  font-family: var(--tipo-familia-numeros);
+  font-size: var(--tipo-tamano-xs);
+  color: var(--color-texto-tenue);
+}
+
+/* ── Banner promocional ──────────────────────────────────────────────── */
+.ui-banner-promo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--espacio-4);
+  min-block-size: 10rem;
+  padding: var(--espacio-6);
+  border-radius: var(--radio-md);
+  color: var(--color-texto);
+  overflow: hidden;
+  transition: box-shadow var(--transicion-rapida);
+}
+.ui-banner-promo:hover { box-shadow: var(--sombra-lg); }
+.ui-banner-promo:focus-visible {
+  outline: 2px solid var(--color-marca-500);
+  outline-offset: 2px;
+}
+/* Los fondos se mezclan con la superficie: sirven igual en claro y en oscuro. */
+.ui-banner-promo--frio {
+  background: color-mix(in srgb, var(--color-accion) 22%, var(--color-superficie));
+}
+.ui-banner-promo--calido {
+  background: color-mix(in srgb, var(--color-favorito) 14%, var(--color-superficie));
+}
+.ui-banner-promo__texto {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: var(--espacio-2);
+  min-inline-size: 0;
+}
+.ui-banner-promo__gancho {
+  font-size: var(--tipo-tamano-sm);
+  font-weight: var(--tipo-peso-medio);
+  color: var(--color-accion);
+}
+.ui-banner-promo__titulo {
+  font-size: var(--tipo-tamano-xl);
+  font-weight: var(--tipo-peso-fuerte);
+  line-height: var(--tipo-altura-apretada);
+  color: var(--color-texto);
+}
+.ui-banner-promo__accion {
+  font-size: var(--tipo-tamano-sm);
+  font-weight: var(--tipo-peso-medio);
+  color: var(--color-texto);
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
+}
+/* La imagen cede ancho al texto: el titulo manda en la promocion. */
+.ui-banner-promo__figura {
+  flex: 0 1 auto;
+  inline-size: 7rem;
+  line-height: 0;
+}
+.ui-banner-promo__figura img {
+  inline-size: 100%;
+  block-size: auto;
+  object-fit: contain;
+}
+@media (min-width: 40rem) {
+  .ui-banner-promo__titulo { font-size: var(--tipo-tamano-2xl); }
+  .ui-banner-promo__figura { inline-size: 9rem; }
+}
+@media (min-width: 64rem) {
+  .ui-banner-promo__figura { inline-size: 11rem; }
+}
+
+/* ── Rejilla de banners ──────────────────────────────────────────────── */
+.ui-rejilla-banners {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--espacio-4);
+}
+@media (min-width: 48rem) {
+  .ui-rejilla-banners { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* ── Tarjeta de producto: valoracion y stock ─────────────────────────── */
+.ui-tarjeta-producto__valoracion { display: flex; align-items: center; }
+.ui-tarjeta-producto__stock {
+  margin: 0;
+  font-size: var(--tipo-tamano-xs);
+  color: var(--color-texto-tenue);
+  text-transform: uppercase;
+}
+.ui-tarjeta-producto__stock strong {
+  font-family: var(--tipo-familia-base);
+  font-weight: var(--tipo-peso-fuerte);
+  color: var(--color-exito);
+}
+

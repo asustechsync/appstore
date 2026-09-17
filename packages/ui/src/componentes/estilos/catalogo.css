@@ -1,0 +1,244 @@
+/* Catalogo — cabecera de listado, paginacion, disposicion y panel de filtros.
+   Extraido de primitivos.css. Todo sale de las variables de theme.css:
+   este archivo no contiene un solo color ni medida literal. */
+
+/* ── Cabecera de listado de catalogo ─────────────────────────────────── */
+.ui-cabecera-catalogo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-2);
+}
+.ui-cabecera-catalogo__migas ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espacio-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--tipo-tamano-sm);
+  color: var(--color-texto-tenue);
+}
+.ui-cabecera-catalogo__migas li + li::before {
+  content: "/";
+  margin-inline-end: var(--espacio-2);
+  color: var(--color-borde-fuerte);
+}
+.ui-cabecera-catalogo__migas a:hover { color: var(--color-texto); text-decoration: underline; }
+.ui-cabecera-catalogo__migas [aria-current="page"] { color: var(--color-texto); }
+.ui-cabecera-catalogo__fila {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--espacio-3);
+}
+.ui-cabecera-catalogo__titulo {
+  margin: 0;
+  color: var(--color-texto);
+  font-family: var(--tipo-familia-display);
+  font-size: var(--tipo-tamano-2xl);
+  font-weight: var(--tipo-peso-fuerte);
+  line-height: var(--tipo-altura-apretada);
+}
+.ui-cabecera-catalogo__total {
+  margin: 0;
+  font-family: var(--tipo-familia-numeros);
+  font-size: var(--tipo-tamano-sm);
+  color: var(--color-texto-tenue);
+}
+.ui-cabecera-catalogo__detalle {
+  margin: 0;
+  max-inline-size: 60ch;
+  font-size: var(--tipo-tamano-sm);
+  line-height: var(--tipo-altura-normal);
+  color: var(--color-texto-suave);
+}
+@media (min-width: 40rem) {
+  .ui-cabecera-catalogo__titulo { font-size: var(--tipo-tamano-3xl); }
+  .ui-cabecera-catalogo__detalle { font-size: var(--tipo-tamano-base); }
+}
+
+/* ── Paginacion del catalogo ─────────────────────────────────────────── */
+.ui-paginacion {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--espacio-2);
+}
+.ui-paginacion__numeros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espacio-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.ui-paginacion__numero,
+.ui-paginacion__salto {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-inline-size: 2.25rem;
+  min-block-size: 2.25rem;
+  padding-inline: var(--espacio-3);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-md);
+  background: var(--color-superficie);
+  font-family: var(--tipo-familia-numeros);
+  font-size: var(--tipo-tamano-sm);
+  color: var(--color-texto);
+}
+.ui-paginacion__numero:hover,
+.ui-paginacion__salto:hover {
+  border-color: var(--color-borde-fuerte);
+  background: var(--color-fondo-sutil);
+}
+.ui-paginacion__numero--actual {
+  border-color: var(--color-marca-500);
+  background: var(--color-marca-500);
+  color: var(--color-texto-inverso);
+  font-weight: var(--tipo-peso-fuerte);
+}
+.ui-paginacion__salto--inerte {
+  color: var(--color-texto-tenue);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* ── Disposicion del catalogo con filtros ────────────────────────────── */
+/* FIRST MOBILE: una columna. Desde tablet el panel se va al lateral. */
+.ui-catalogo-cols {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--espacio-4);
+  align-items: start;
+}
+.ui-catalogo-cols__principal {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-6);
+  min-inline-size: 0;
+}
+@media (min-width: 60rem) {
+  .ui-catalogo-cols { grid-template-columns: 15rem minmax(0, 1fr); gap: var(--espacio-6); }
+  .ui-catalogo-cols__lateral { position: sticky; top: var(--espacio-4); }
+}
+
+/* ── Panel de filtros ────────────────────────────────────────────────── */
+.ui-filtros {
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-md);
+  background: var(--color-superficie);
+}
+.ui-filtros__resumen {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--espacio-2);
+  padding: var(--espacio-3) var(--espacio-4);
+  cursor: pointer;
+  list-style: none;
+  color: var(--color-texto);
+  font-size: var(--tipo-tamano-base);
+  font-weight: var(--tipo-peso-fuerte);
+}
+.ui-filtros__resumen::-webkit-details-marker { display: none; }
+.ui-filtros__resumen-flecha {
+  inline-size: 0.5rem;
+  block-size: 0.5rem;
+  border-inline-end: 2px solid var(--color-texto-tenue);
+  border-block-end: 2px solid var(--color-texto-tenue);
+  transform: rotate(45deg);
+  transition: transform 150ms ease;
+}
+.ui-filtros[open] .ui-filtros__resumen-flecha { transform: rotate(-135deg); }
+/* Sin `display` en la regla base: un `<details>` cerrado oculta su contenido y
+   declararlo aqui lo dejaria siempre abierto. */
+.ui-filtros__cuerpo {
+  flex-direction: column;
+  gap: var(--espacio-5);
+  padding: var(--espacio-4);
+  border-block-start: 1px solid var(--color-borde);
+}
+.ui-filtros[open] .ui-filtros__cuerpo { display: flex; }
+.ui-filtros__limpiar {
+  align-self: flex-start;
+  font-size: var(--tipo-tamano-sm);
+  color: var(--color-oferta);
+}
+.ui-filtros__limpiar:hover { text-decoration: underline; }
+.ui-filtros__grupo { display: flex; flex-direction: column; gap: var(--espacio-2); }
+.ui-filtros__titulo {
+  margin: 0;
+  font-size: var(--tipo-tamano-xs);
+  font-weight: var(--tipo-peso-fuerte);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-texto-tenue);
+}
+.ui-filtros__opciones {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.ui-filtros__opcion {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-2);
+  padding: var(--espacio-1) var(--espacio-2);
+  border-radius: var(--radio-sm);
+  font-size: var(--tipo-tamano-sm);
+  color: var(--color-texto);
+}
+.ui-filtros__opcion:hover { background: var(--color-fondo-sutil); }
+/* Casilla dibujada con bordes: no hay input, la opcion es un enlace. */
+.ui-filtros__marca {
+  flex: none;
+  inline-size: 0.95rem;
+  block-size: 0.95rem;
+  border: 1px solid var(--color-borde-fuerte);
+  border-radius: var(--radio-sm);
+  background: var(--color-superficie);
+}
+.ui-filtros__opcion--activa .ui-filtros__marca {
+  border-color: var(--color-marca-500);
+  background: var(--color-marca-500);
+  box-shadow: inset 0 0 0 2px var(--color-superficie);
+}
+.ui-filtros__opcion--activa { font-weight: var(--tipo-peso-medio); }
+.ui-filtros__muestra {
+  flex: none;
+  inline-size: 0.85rem;
+  block-size: 0.85rem;
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-completo);
+}
+.ui-filtros__etiqueta {
+  flex: 1;
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ui-filtros__total {
+  flex: none;
+  font-family: var(--tipo-familia-numeros);
+  font-size: var(--tipo-tamano-xs);
+  color: var(--color-texto-tenue);
+}
+
+/* Desde tablet el panel deja de plegarse: siempre visible en el lateral. El
+   `<details>` solo existe para que en movil no empuje la rejilla hacia abajo. */
+@media (min-width: 60rem) {
+  .ui-filtros__resumen { cursor: default; pointer-events: none; }
+  .ui-filtros__resumen-flecha { display: none; }
+  /* Los navegadores ocultan el contenido cerrado de dos maneras distintas:
+     algunos con `display` sobre los hijos y los recientes con
+     `content-visibility` sobre `::details-content`. Se anulan las dos. */
+  .ui-filtros:not([open]) .ui-filtros__cuerpo { display: flex; }
+  .ui-filtros::details-content { content-visibility: visible; block-size: auto; }
+}

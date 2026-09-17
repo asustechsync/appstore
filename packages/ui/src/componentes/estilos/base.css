@@ -1,0 +1,179 @@
+/* Primitivos base — Boton, Campo, Tarjeta, Precio, Insignia, Boton iconico.
+   Extraido de primitivos.css. Todo sale de las variables de theme.css:
+   este archivo no contiene un solo color ni medida literal. */
+
+/* ── Boton ───────────────────────────────────────────────────────────── */
+.ui-boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--espacio-2);
+  border: 1px solid transparent;
+  border-radius: var(--radio-completo);
+  font-family: var(--tipo-familia-base);
+  font-weight: var(--tipo-peso-fuerte);
+  line-height: var(--tipo-altura-apretada);
+  cursor: pointer;
+  transition: background-color var(--transicion-rapida), border-color var(--transicion-rapida);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.ui-boton:disabled { opacity: 0.5; cursor: not-allowed; }
+.ui-boton:focus-visible { outline: 2px solid var(--color-marca-500); outline-offset: 2px; }
+
+/* tamanos */
+.ui-boton--sm { padding: var(--espacio-2) var(--espacio-3); font-size: var(--tipo-tamano-sm); }
+.ui-boton--md { padding: var(--espacio-3) var(--espacio-5); font-size: var(--tipo-tamano-base); }
+.ui-boton--lg { padding: var(--espacio-4) var(--espacio-6); font-size: var(--tipo-tamano-lg); }
+
+/* variantes */
+.ui-boton--solido { background: var(--color-marca-500); color: var(--color-texto-inverso); }
+.ui-boton--solido:hover:not(:disabled) { background: var(--color-marca-600); }
+
+.ui-boton--contorno {
+  background: transparent;
+  color: var(--color-texto);
+  border-color: var(--color-borde-fuerte);
+}
+.ui-boton--contorno:hover:not(:disabled) { background: var(--color-fondo-sutil); }
+
+.ui-boton--fantasma { background: transparent; color: var(--color-texto-suave); }
+.ui-boton--fantasma:hover:not(:disabled) { background: var(--color-fondo-sutil); color: var(--color-texto); }
+
+.ui-boton--peligro { background: var(--color-error); color: var(--color-neutro-0); }
+
+/* Sobre fondo oscuro: claro con texto oscuro. */
+.ui-boton--inverso { background: var(--color-neutro-0); color: var(--color-neutro-900); }
+.ui-boton--inverso:hover:not(:disabled) { background: var(--color-neutro-200); }
+
+.ui-boton--ancho { width: 100%; }
+
+/* ── Campo ───────────────────────────────────────────────────────────── */
+.ui-campo { display: flex; flex-direction: column; gap: var(--espacio-1); }
+.ui-campo__etiqueta {
+  font-family: var(--tipo-familia-base);
+  font-size: var(--tipo-tamano-sm);
+  font-weight: var(--tipo-peso-medio);
+  color: var(--color-texto-tenue);
+}
+.ui-campo__control {
+  width: 100%;
+  padding: var(--espacio-3) var(--espacio-4);
+  font-family: var(--tipo-familia-base);
+  font-size: var(--tipo-tamano-base);
+  color: var(--color-texto);
+  background: var(--color-superficie);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-md);
+  transition: border-color var(--transicion-rapida);
+}
+.ui-campo__control::placeholder { color: var(--color-texto-tenue); }
+.ui-campo__control:focus {
+  outline: none;
+  border-color: var(--color-marca-500);
+  box-shadow: 0 0 0 3px var(--color-marca-100);
+}
+.ui-campo--error .ui-campo__control { border-color: var(--color-error); }
+.ui-campo__ayuda { font-size: var(--tipo-tamano-xs); color: var(--color-texto-tenue); }
+.ui-campo__error { font-size: var(--tipo-tamano-xs); color: var(--color-error); }
+
+/* ── Tarjeta ─────────────────────────────────────────────────────────── */
+.ui-tarjeta {
+  background: var(--color-superficie);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-lg);
+  overflow: hidden;
+}
+.ui-tarjeta--plana { border: 0; background: transparent; }
+.ui-tarjeta--elevada { border: 0; box-shadow: var(--sombra-md); }
+.ui-tarjeta--interactiva { transition: box-shadow var(--transicion-normal); }
+.ui-tarjeta--interactiva:hover { box-shadow: var(--sombra-lg); }
+.ui-tarjeta__cuerpo { padding: var(--espacio-4); }
+
+/* ── Precio ──────────────────────────────────────────────────────────── */
+.ui-precio { display: inline-flex; align-items: baseline; gap: var(--espacio-2); }
+.ui-precio__descuento { display: inline-flex; }
+.ui-precio--resumen {
+  display: grid;
+  grid-template-columns: max-content max-content;
+  align-items: center;
+  column-gap: var(--espacio-2);
+  row-gap: var(--espacio-1);
+}
+.ui-precio--resumen .ui-precio__actual { grid-column: 1 / -1; grid-row: 2; }
+.ui-precio--resumen .ui-precio__antes { grid-column: 1; grid-row: 1; }
+.ui-precio--resumen .ui-precio__descuento { grid-column: 2; grid-row: 1; }
+.ui-precio__actual {
+  font-family: var(--tipo-familia-numeros);
+  font-weight: var(--tipo-peso-fuerte);
+  color: var(--color-precio);
+  font-variant-numeric: tabular-nums;
+}
+/* En oferta el precio se mantiene en el color normal (minimalista): la
+   diferencia la marca el precio tachado y la insignia de descuento. */
+.ui-precio__antes {
+  font-family: var(--tipo-familia-numeros);
+  font-size: var(--tipo-tamano-sm);
+  color: var(--color-texto-suave);
+  text-decoration: line-through;
+  font-variant-numeric: tabular-nums;
+}
+.ui-precio--sm .ui-precio__actual { font-size: var(--tipo-tamano-base); }
+.ui-precio--md .ui-precio__actual { font-size: var(--tipo-tamano-xl); }
+.ui-precio--lg .ui-precio__actual { font-size: var(--tipo-tamano-3xl); }
+
+/* Sobre fondo oscuro. */
+.ui-precio--inverso .ui-precio__actual { color: var(--color-neutro-0); }
+.ui-precio--inverso.ui-precio--oferta .ui-precio__actual { color: var(--color-neutro-0); }
+.ui-precio--inverso .ui-precio__antes { color: var(--color-neutro-400); }
+
+/* ── Insignia ────────────────────────────────────────────────────────── */
+.ui-insignia {
+  display: inline-flex;
+  align-items: center;
+  padding: calc(var(--espacio-1) * 0.75) calc(var(--espacio-1) * 1.5);
+  border-radius: var(--radio-sm);
+  font-family: var(--tipo-familia-base);
+  font-size: var(--tipo-tamano-xs);
+  font-weight: var(--tipo-peso-fuerte);
+  line-height: var(--tipo-altura-apretada);
+}
+/* Estilo "pastel": fondo tenue del propio color + texto saturado. Es el
+   look de los indicadores del tablero de referencia (+7 %, -19 %). */
+.ui-insignia--neutro { background: var(--color-neutro-100); color: var(--color-neutro-600); }
+.ui-insignia--marca  { background: var(--color-marca-50);   color: var(--color-marca-700); }
+.ui-insignia--oferta { background: color-mix(in srgb, var(--color-oferta) 14%, transparent); color: var(--color-oferta); }
+.ui-insignia--tendencia { background: color-mix(in srgb, var(--color-tendencia) 14%, transparent); color: var(--color-tendencia); }
+.ui-insignia--exito  { background: color-mix(in srgb, var(--color-exito) 14%, transparent);  color: var(--color-exito); }
+.ui-insignia--alerta { background: color-mix(in srgb, var(--color-alerta) 16%, transparent); color: var(--color-alerta); }
+.ui-insignia--error  { background: color-mix(in srgb, var(--color-error) 14%, transparent);  color: var(--color-error); }
+
+/* ── Boton iconico ───────────────────────────────────────────────────── */
+/* Boton cuadrado solo-icono: tema, hamburguesa, cerrar. */
+.ui-boton-icono {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  inline-size: var(--espacio-10);
+  block-size: var(--espacio-10);
+  padding: 0;
+  border: 0;
+  border-radius: var(--radio-md);
+  background: transparent;
+  color: var(--color-texto-suave);
+  cursor: pointer;
+  transition: background-color var(--transicion-rapida), color var(--transicion-rapida);
+}
+.ui-boton-icono:hover { background: var(--color-fondo-sutil); color: var(--color-texto); }
+.ui-boton-icono:focus-visible { outline: 2px solid var(--color-marca-500); outline-offset: 2px; }
+.ui-boton-icono__glifo { display: inline-flex; inline-size: 1.25rem; block-size: 1.25rem; }
+.ui-boton-icono__glifo--moon,
+.ui-boton-icono__glifo--sun {
+  background: currentColor;
+  -webkit-mask: center / contain no-repeat;
+  mask: center / contain no-repeat;
+}
+.ui-boton-icono__glifo--moon { -webkit-mask-image: url("/iconos/moon.svg"); mask-image: url("/iconos/moon.svg"); }
+.ui-boton-icono__glifo--sun { -webkit-mask-image: url("/iconos/sun.svg"); mask-image: url("/iconos/sun.svg"); }
+

@@ -1,0 +1,21 @@
+/* Layout — Pila, Fila, Contenedor, Seccion.
+   Extraido de primitivos.css. Todo sale de las variables de theme.css:
+   este archivo no contiene un solo color ni medida literal. */
+
+/* ── Layout ──────────────────────────────────────────────────────────── */
+.ui-pila { display: flex; flex-direction: column; }
+.ui-fila { display: flex; flex-direction: row; align-items: center; }
+.ui-contenedor {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: var(--espacio-4);
+  max-width: var(--contenedor-ancho);
+}
+.ui-contenedor--lg { max-width: var(--contenedor-lg); }
+.ui-contenedor--md { max-width: var(--contenedor-md); }
+@media (max-width: 47.99rem) {
+  .ui-contenedor { padding-inline: var(--espacio-3); }
+}
+
+.ui-seccion { padding-block: var(--espacio-10); }
+
