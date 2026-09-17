@@ -78,20 +78,86 @@ export async function productoPorSlug(slug: string): Promise<VistaCatalogo | nul
   return fila ? aVistaCatalogo(fila) : null;
 }
 
+/**
+ * Cabecera de la categoria: nombre, descripcion y SEO. Comparte la etiqueta del
+ * listado para que un cambio en el panel invalide ambos de una vez.
+ */
+export async function categoriaPorSlug(slug: string) {
+  "use cache";
+  cacheLife("max");
+  cacheTag(etiquetas.categoria(slug));
+
+  return db.categoria.findFirst({
+    where: { slug, activo: true },
+    select: {
+      id: true,
+      nombre: true,
+      slug: true,
+      descripcion: true,
+      tituloSeo: true,
+      descripcionSeo: true,
+      padre: { select: { nombre: true, slug: true } },
+    },
+  });
+}
+
+/**
+ * Filtros del listado. Llegan de la URL, asi que se leen FUERA del ambito
+ * `use cache` y entran como argumento: cada combinacion es su propia entrada de
+ * cache, con la misma etiqueta `categoria:{slug}`.
+ */
+export interface FiltrosCatalogo {
+  marcas: string[];
+  tallas: string[];
+  colores: string[];
+  soloOfertas: boolean;
+}
+
+export const FILTROS_VACIOS: FiltrosCatalogo = {
+  marcas: [],
+  tallas: [],
+  colores: [],
+  soloOfertas: false,
+};
+
+/**
+ * Traduce los filtros a un `where` de Prisma sobre `catalogo_lectura`.
+ *
+ * `talla` y `color` viven dentro de la columna JSON `facetas`, ya resuelta por
+ * el refresco del catalogo: se consultan con `array_contains` y no obligan a
+ * unir variantes. Dentro de un grupo las opciones suman (OR); entre grupos
+ * restringen (AND).
+ */
+function condiciones(categoriaSlug: string, filtros: FiltrosCatalogo) {
+  const porFaceta = (faceta: "talla" | "color", valores: string[]) =>
+    valores.map((valor) => ({ facetas: { path: [faceta], array_contains: valor } }));
+
+  const grupos = [
+    filtros.tallas.length > 0 ? { OR: porFaceta("talla", filtros.tallas) } : null,
+    filtros.colores.length > 0 ? { OR: porFaceta("color", filtros.colores) } : null,
+  ].filter((grupo) => grupo !== null);
+
+  return {
+    categoriaRuta: { has: categoriaSlug },
+    activo: true,
+    disponible: true,
+    ...(filtros.marcas.length > 0 ? { marcaSlug: { in: filtros.marcas } } : {}),
+    ...(filtros.soloOfertas ? { enOferta: true } : {}),
+    ...(grupos.length > 0 ? { AND: grupos } : {}),
+  };
+}
+
 export async function productosDeCategoria(
   categoriaSlug: string,
   pagina = 1,
+  filtros: FiltrosCatalogo = FILTROS_VACIOS,
   porPagina = 24,
 ) {
   "use cache";
   cacheLife("max");
   cacheTag(etiquetas.categoria(categoriaSlug));
 
-  const where = {
-    categoriaRuta: { has: categoriaSlug },
-    activo: true,
-    disponible: true,
-  };
+  const where = condiciones(categoriaSlug, filtros);
 
   const [items, total] = await Promise.all([
     db.catalogoLectura.findMany({
@@ -104,6 +170,78 @@ export async function productosDeCategoria(
   ]);
 
   return { items: items.map(aVistaCatalogo), total, paginas: Math.ceil(total / porPagina) };
+}
+
+/** Una opcion del panel de filtros con cuantos productos la tienen. */
+export interface OpcionFaceta {
+  valor: string;
+  etiqueta: string;
+  total: number;
+}
+
+/**
+ * Opciones disponibles para filtrar una categoria: marcas, tallas y colores.
+ *
+ * Se calculan sobre la categoria COMPLETA, no sobre el resultado ya filtrado,
+ * para que las opciones no desaparezcan al marcar una y el panel se pueda
+ * cachear junto al resto del listado.
+ */
+export async function facetasDeCategoria(categoriaSlug: string) {
+  "use cache";
+  cacheLife("max");
+  cacheTag(etiquetas.categoria(categoriaSlug));
+
+  const filas = await db.catalogoLectura.findMany({
+    where: { categoriaRuta: { has: categoriaSlug }, activo: true, disponible: true },
+    select: { marcaSlug: true, marcaNombre: true, facetas: true, enOferta: true },
+  });
+
+  const marcas = new Map<string, OpcionFaceta>();
+  const tallas = new Map<string, OpcionFaceta>();
+  const colores = new Map<string, OpcionFaceta>();
+  let ofertas = 0;
+
+  const sumar = (mapa: Map<string, OpcionFaceta>, valor: string, etiqueta: string) => {
+    const previa = mapa.get(valor);
+    if (previa) previa.total += 1;
+    else mapa.set(valor, { valor, etiqueta, total: 1 });
+  };
+
+  for (const fila of filas) {
+    if (fila.marcaSlug && fila.marcaNombre) {
+      sumar(marcas, fila.marcaSlug, fila.marcaNombre);
+    }
+    if (fila.enOferta) ofertas += 1;
+
+    const facetas = (fila.facetas ?? {}) as { talla?: unknown; color?: unknown };
+    for (const talla of Array.isArray(facetas.talla) ? facetas.talla : []) {
+      if (typeof talla === "string") sumar(tallas, talla, talla);
+    }
+    for (const color of Array.isArray(facetas.color) ? facetas.color : []) {
+      if (typeof color === "string") sumar(colores, color, color);
+    }
+  }
+
+  const porEtiqueta = (a: OpcionFaceta, b: OpcionFaceta) => a.etiqueta.localeCompare(b.etiqueta, "es");
+
+  return {
+    marcas: [...marcas.values()].sort(porEtiqueta),
+    // Las tallas se ordenan por su orden natural de uso, no alfabetico.
+    tallas: [...tallas.values()].sort((a, b) => ordenDeTalla(a.valor) - ordenDeTalla(b.valor)),
+    colores: [...colores.values()].sort(porEtiqueta),
+    ofertas,
+  };
+}
+
+/** Orden de talla para el panel: XS..XXL, luego tallas numericas y de bebe. */
+const ESCALA_TALLAS = ["XS", "S", "M", "L", "XL", "XXL"];
+
+function ordenDeTalla(talla: string): number {
+  const letra = ESCALA_TALLAS.indexOf(talla.toUpperCase());
+  if (letra >= 0) return letra;
+
+  const numero = Number.parseInt(talla, 10);
+  return Number.isNaN(numero) ? 500 : 100 + numero;
 }
 
 export async function destacadosPortada(limite = 12): Promise<VistaCatalogo[]> {
@@ -215,6 +353,18 @@ export async function navegacion() {
   ]);
 
   return { categorias, marcas };
+}
+
+/** Slugs para pre-generar los listados de categoria en el build. */
+export async function slugsDeCategorias(): Promise<Array<{ slug: string }>> {
+  "use cache";
+  cacheLife("max");
+  cacheTag(etiquetas.navegacion());
+
+  return db.categoria.findMany({
+    where: { activo: true },
+    select: { slug: true },
+  });
 }
 
 /** Slugs para pre-generar las fichas en el build. */

@@ -34,6 +34,18 @@ export {
   type MigaFicha,
   type EspecificacionFicha,
 } from "./componentes/FichaProducto";
+export { CabeceraCatalogo, type PropsCabeceraCatalogo } from "./componentes/CabeceraCatalogo";
+export { Paginacion, type PropsPaginacion } from "./componentes/Paginacion";
+export {
+  PanelFiltros,
+  type PropsPanelFiltros,
+  type GrupoFiltros,
+  type OpcionFiltro,
+} from "./componentes/PanelFiltros";
+export {
+  DisposicionCatalogo,
+  type PropsDisposicionCatalogo,
+} from "./componentes/DisposicionCatalogo";
 export { Cabecera, ContadorCabecera, type PropsCabecera, type EnlaceNav } from "./componentes/Cabecera";
 export { Buscador, type PropsBuscador } from "./componentes/Buscador";
 export { CategoriasDestacadas } from "./componentes/CategoriasDestacadas";
