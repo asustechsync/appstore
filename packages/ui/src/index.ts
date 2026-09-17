@@ -12,12 +12,9 @@ export { Estrellas, type PropsEstrellas } from "./componentes/Estrellas";
 export { Pila, Fila, Contenedor, Seccion } from "./componentes/Layout";
 export { TarjetaProducto, type PropsTarjetaProducto } from "./componentes/TarjetaProducto";
 export { RejillaProductos } from "./componentes/RejillaProductos";
-export { RejillaBanners } from "./componentes/RejillaBanners";
-export { PanelSeccion, type PropsPanelSeccion } from "./componentes/PanelSeccion";
 export { TarjetaCategoria, type PropsTarjetaCategoria } from "./componentes/TarjetaCategoria";
 export { TarjetaPromo, type PropsTarjetaPromo } from "./componentes/TarjetaPromo";
 export { BannerPromo, type PropsBannerPromo } from "./componentes/BannerPromo";
-export { OfertaFlash, type PropsOfertaFlash } from "./componentes/OfertaFlash";
 export {
   HeroPortada,
   type PropsHeroPortada,
@@ -25,7 +22,6 @@ export {
   type PiezaProductoHero,
 } from "./componentes/HeroPortada";
 export { SlidePortada, type DiapositivaPortada } from "./componentes/SlidePortada";
-export { CarruselProductos, type PropsCarruselProductos } from "./componentes/CarruselProductos";
 export { GaleriaProducto, type PropsGaleriaProducto } from "./componentes/GaleriaProducto";
 export { PanelCompra, type PropsPanelCompra, type OpcionCompra } from "./componentes/PanelCompra";
 export {
