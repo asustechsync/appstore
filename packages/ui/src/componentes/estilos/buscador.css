@@ -7,6 +7,12 @@
    contenedor: mira `.ui-cabecera .ui-buscador` en cabecera.css. */
 
 .ui-buscador {
+  /* Derivados del patron de control de webstore (src/styles/tokens.css):
+     el borde reacciona en dos pasos — un 24 % hacia el gris de texto al pasar
+     el raton, un 58 % al enfocar — en vez de saltar al color de marca. */
+  --buscador-borde-hover: color-mix(in srgb, var(--color-texto-suave) 24%, var(--color-borde));
+  --buscador-focus: color-mix(in srgb, var(--color-texto-suave) 58%, var(--color-borde));
+
   display: flex;
   align-items: center;
   block-size: var(--espacio-10);
@@ -15,13 +21,19 @@
   border-radius: var(--radio-lg);
   background: var(--color-superficie);
   box-shadow: var(--sombra-sm);
-  transition: border-color var(--transicion-rapida), box-shadow var(--transicion-rapida);
+  transition:
+    border-color var(--transicion-rapida),
+    box-shadow var(--transicion-rapida),
+    background-color var(--transicion-rapida);
 }
-/* Halo discreto: suficiente para que el foco se vea (lo exige la
-   accesibilidad), sin el anillo grueso de antes. */
+.ui-buscador:hover {
+  border-color: var(--buscador-borde-hover);
+}
+/* Halo de 2 px al 7 %: casi imperceptible, pero el borde mas oscuro deja claro
+   donde esta el foco para quien navega con teclado. */
 .ui-buscador:focus-within {
-  border-color: var(--color-texto-suave);
-  box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-marca-500) 8%, transparent);
+  border-color: color-mix(in srgb, var(--buscador-focus) 68%, var(--color-borde));
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--buscador-focus) 7%, transparent);
 }
 .ui-buscador input {
   inline-size: 100%;
@@ -34,7 +46,11 @@
   font: inherit;
   font-size: var(--tipo-tamano-sm);
 }
-.ui-buscador input::placeholder { color: var(--color-texto-suave); }
+/* `opacity: 1` porque Firefox aplica opacidad propia al placeholder. */
+.ui-buscador input::placeholder {
+  color: color-mix(in srgb, var(--color-texto-suave) 72%, transparent);
+  opacity: 1;
+}
 .ui-buscador button {
   display: inline-flex;
   align-items: center;
