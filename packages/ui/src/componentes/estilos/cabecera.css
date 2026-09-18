@@ -119,49 +119,13 @@
 .ui-cabecera__menu-categorias a:hover {
   background: var(--color-fondo-sutil);
 }
-.ui-cabecera__buscador {
-  display: flex;
-  align-items: center;
+/* Colocacion del buscador dentro de la cabecera. Su aspecto vive en
+   buscador.css; aqui solo se decide cuanto espacio ocupa y donde se pone. */
+.ui-cabecera .ui-buscador {
   flex: 1;
-  block-size: var(--espacio-10);
-  min-inline-size: 0;
   max-inline-size: 42rem;
   margin-inline-start: var(--espacio-6);
-  border: 1px solid var(--color-borde);
-  border-radius: var(--radio-lg);
-  background: var(--color-superficie);
-  box-shadow: var(--sombra-sm);
 }
-.ui-cabecera__buscador:focus-within {
-  border-color: var(--color-marca-500);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-marca-500) 18%, transparent);
-}
-.ui-cabecera__buscador input {
-  inline-size: 100%;
-  min-inline-size: 0;
-  padding: var(--espacio-2) var(--espacio-4);
-  border: 0;
-  outline: 0;
-  background: transparent;
-  color: var(--color-texto);
-  font: inherit;
-  font-size: var(--tipo-tamano-sm);
-}
-.ui-cabecera__buscador input::placeholder { color: var(--color-texto-suave); }
-.ui-cabecera__buscador button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  align-self: stretch;
-  inline-size: var(--espacio-12);
-  flex: 0 0 auto;
-  border: 0;
-  border-inline-start: 1px solid var(--color-borde);
-  background: transparent;
-  color: var(--color-texto-suave);
-  cursor: pointer;
-}
-.ui-cabecera__buscador button:hover { color: var(--color-texto); background: var(--color-fondo-sutil); }
 .ui-cabecera__secundaria {
   display: flex;
   align-items: center;
@@ -307,10 +271,6 @@
   color: var(--color-accion);
   -webkit-mask-image: url("/iconos/location.svg");
   mask-image: url("/iconos/location.svg");
-}
-.ui-cabecera__icono--buscar {
-  -webkit-mask-image: url("/iconos/search.svg");
-  mask-image: url("/iconos/search.svg");
 }
 .ui-cabecera__icono--usuario {
   -webkit-mask-image: url("/iconos/user.svg");
@@ -460,7 +420,7 @@
 }
 @media (min-width: 80rem) {
   .ui-cabecera__principal { position: relative; }
-  .ui-cabecera__buscador {
+  .ui-cabecera .ui-buscador {
     position: absolute;
     inset-inline-start: 50%;
     inline-size: 42rem;
@@ -481,7 +441,7 @@
     inset-inline: var(--espacio-3);
     inline-size: auto;
   }
-  .ui-cabecera__buscador { order: 3; flex-basis: 100%; max-inline-size: none; margin-inline-start: 0; }
+  .ui-cabecera .ui-buscador { order: 3; flex-basis: 100%; max-inline-size: none; margin-inline-start: 0; }
   .ui-cabecera__acciones { margin-inline-start: auto; }
   .ui-cabecera__aviso-envio { display: none; }
   .ui-cabecera__aviso-contenido { justify-content: center; min-block-size: 1.8rem; }

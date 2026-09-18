@@ -18,6 +18,9 @@
  * ═══════════════════════════════════════════════════════════════════════════ */
 
 @import "./estilos/base.css";
+/* buscador antes que cabecera: primero el aspecto del componente, despues la
+   colocacion que le impone su contenedor. */
+@import "./estilos/buscador.css";
 @import "./estilos/cabecera.css";
 @import "./estilos/layout.css";
 @import "./estilos/portada.css";

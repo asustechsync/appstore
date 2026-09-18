@@ -1,0 +1,61 @@
+/* Buscador — el aspecto del componente, no su colocacion.
+   Todo sale de las variables de theme.css: este archivo no contiene un solo
+   color ni medida literal.
+
+   Aqui vive COMO SE VE el buscador, igual este en la cabecera, en /buscar o
+   en el menu movil. COMO SE COLOCA dentro de un contenedor es asunto de ese
+   contenedor: mira `.ui-cabecera .ui-buscador` en cabecera.css. */
+
+.ui-buscador {
+  display: flex;
+  align-items: center;
+  block-size: var(--espacio-10);
+  min-inline-size: 0;
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-lg);
+  background: var(--color-superficie);
+  box-shadow: var(--sombra-sm);
+}
+.ui-buscador:focus-within {
+  border-color: var(--color-marca-500);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-marca-500) 18%, transparent);
+}
+.ui-buscador input {
+  inline-size: 100%;
+  min-inline-size: 0;
+  padding: var(--espacio-2) var(--espacio-4);
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--color-texto);
+  font: inherit;
+  font-size: var(--tipo-tamano-sm);
+}
+.ui-buscador input::placeholder { color: var(--color-texto-suave); }
+.ui-buscador button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  inline-size: var(--espacio-12);
+  flex: 0 0 auto;
+  border: 0;
+  border-inline-start: 1px solid var(--color-borde);
+  background: transparent;
+  color: var(--color-texto-suave);
+  cursor: pointer;
+}
+.ui-buscador button:hover { color: var(--color-texto); background: var(--color-fondo-sutil); }
+
+/* Icono propio: el buscador no depende del juego de iconos de la cabecera. */
+.ui-buscador__icono {
+  display: inline-block;
+  inline-size: var(--tipo-tamano-base);
+  block-size: var(--tipo-tamano-base);
+  flex: 0 0 auto;
+  background: currentColor;
+  -webkit-mask: center / contain no-repeat;
+  mask: center / contain no-repeat;
+  -webkit-mask-image: url("/iconos/search.svg");
+  mask-image: url("/iconos/search.svg");
+}
