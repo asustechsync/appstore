@@ -15,10 +15,13 @@
   border-radius: var(--radio-lg);
   background: var(--color-superficie);
   box-shadow: var(--sombra-sm);
+  transition: border-color var(--transicion-rapida), box-shadow var(--transicion-rapida);
 }
+/* Halo discreto: suficiente para que el foco se vea (lo exige la
+   accesibilidad), sin el anillo grueso de antes. */
 .ui-buscador:focus-within {
-  border-color: var(--color-marca-500);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-marca-500) 18%, transparent);
+  border-color: var(--color-texto-suave);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-marca-500) 8%, transparent);
 }
 .ui-buscador input {
   inline-size: 100%;
@@ -44,8 +47,11 @@
   background: transparent;
   color: var(--color-texto-suave);
   cursor: pointer;
+  transition: color var(--transicion-rapida);
 }
-.ui-buscador button:hover { color: var(--color-texto); background: var(--color-fondo-sutil); }
+/* El boton ocupa todo el alto del buscador, asi que pintarle el fondo en
+   hover encendia un rectangulo entero. Basta con que la lupa se oscurezca. */
+.ui-buscador button:hover { color: var(--color-texto); }
 
 /* Icono propio: el buscador no depende del juego de iconos de la cabecera. */
 .ui-buscador__icono {
